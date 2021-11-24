@@ -1,0 +1,36 @@
+BrandTable:
+  Type: AWS::DynamoDB::Table
+  Properties:
+    TableName: Brand-${self:provider.stage}
+    BillingMode: PAY_PER_REQUEST
+    AttributeDefinitions:
+      - AttributeName: BrandId
+        AttributeType: S
+      - AttributeName: Status
+        AttributeType: S
+      - AttributeName: Categotry
+        AttributeType: S
+      - AttributeName: UserID
+        AttributeType: S 
+    KeySchema:
+      - AttributeName: BrandId
+        KeyType: HASH
+      - AttributeName: Categotry
+        KeyType: RANGE
+    LocalSecondaryIndexes:
+      - IndexName: CategotryAndUserID
+        KeySchema:
+          - AttributeName: BrandId
+            KeyType: HASH
+          - AttributeName: UserID
+            KeyType: RANGE 
+        Projection:
+            ProjectionType: ALL 
+      - IndexName: StatusAndUserID
+        KeySchema:
+          - AttributeName: BrandId
+            KeyType: HASH
+          - AttributeName: Status
+            KeyType: RANGE 
+        Projection:
+            ProjectionType: ALL  
