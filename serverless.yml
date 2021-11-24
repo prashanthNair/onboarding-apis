@@ -1,0 +1,57 @@
+service:
+  name: brand-onboarding-rest-api
+
+plugins: 
+  - serverless-offline
+  - serverless-plugin-typescript  
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  memorySize: 256
+  stage: ${opt:stage, 'dev'}
+  region: ap-south-1
+  profile: serverless-admin
+  environment:
+    BRAND_TABLE_NAME: ${self:custom.BrandTable.name} 
+    BRAND_BUCKET_NAME: ${self:custom.BrandBucket.name}
+  iam: 
+   role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+          Resource: arn:aws:dynamodb:ap-south-1:670022476151:table/Brand-dev 
+        - Effect: Allow
+          Action:
+            - s3:PutObject
+          Resource: arn:aws:s3:::${self:custom.BrandBucket.name}/* 
+
+resources:
+  Resources:
+    BrandTable: ${file(infra/resources/dynamodb.yml):BrandTable}
+    BrandBucket: ${file(infra/resources/s3.yml):BrandBucket}
+    BrandBucketPolicy: ${file(infra/resources/s3.yml):BrandBucketPolicy}
+    
+functions:
+  createbrand:
+    handler: app/handlers/createBrand.handler
+    events:
+      - http:
+          method: POST
+          path: /brand
+          cors: true 
+
+custom: 
+  BrandTable:
+    name: !Ref BrandTable
+    arn: !GetAtt BrandTable.Arn 
+  BrandBucket:
+    name: brand-onboarding-rest-api-${self:provider.stage}
+  bundle:
+    linting: false
