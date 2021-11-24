@@ -1,10 +1,17 @@
+
 {
   "compilerOptions": {
-    "target": "es5",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "lib": ["esnext"],
     "module": "commonjs",
-    "strict": true,
-    "esModuleInterop": true
+    "moduleResolution": "node",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "outDir": "lib",
+    "sourceMap": true,
+    "target": "esnext"
   },
   "exclude": ["node_modules"],
-  "types": ["node", "aws-sdk"], 
+  "types": ["node", "aws-sdk"]
 }
