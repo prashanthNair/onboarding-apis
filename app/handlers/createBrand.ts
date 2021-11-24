@@ -16,7 +16,7 @@ const createBrand= async(event:any, context:any)=> {
 
   const brandRequest: any = {
     BrandId: uuid(), 
-    Category:category,
+    Category: "Health Fitness",
     MobileNumber: "90009000090",
     CreatedAt: now.toISOString(), 
     Status: "Active"
@@ -29,6 +29,4 @@ const createBrand= async(event:any, context:any)=> {
 }
 
  
- export const handler = middy(createBrand);
-   
-  //.use(validator({ inputSchema: CreateBrandSchema }));
+ export const handler = middy(createBrand); 

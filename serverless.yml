@@ -4,6 +4,7 @@ service:
 plugins: 
   - serverless-offline
   - serverless-plugin-typescript  
+  - serverless-domain-manager
 
 provider:
   name: aws
@@ -39,19 +40,35 @@ resources:
     BrandBucketPolicy: ${file(infra/resources/s3.yml):BrandBucketPolicy}
     
 functions:
+  brandHealthCheck:
+    handler: app/handlers/health.handler
+    events:
+      - http:
+          method: GET
+          path: /health
+          cors: true 
   createbrand:
     handler: app/handlers/createBrand.handler
     events:
       - http:
           method: POST
-          path: /brand
+          path: / 
           cors: true 
 
 custom: 
+  stage: ${opt:stage, self:provider.stage}
+  domains: 
+    dev: api.migobucks.com
+    # prod: api.migobucks.com 
   BrandTable:
     name: !Ref BrandTable
     arn: !GetAtt BrandTable.Arn 
   BrandBucket:
-    name: brand-onboarding-rest-api-${self:provider.stage}
+    name: brand-onboarding-rest-api-${self:provider.stage} 
+  customDomain:
+    domainName: ${self:custom.domains.${self:custom.stage}}
+    basePath: 'brand'
+    stage: dev 
+    createRoute53Record: true 
   bundle:
     linting: false
