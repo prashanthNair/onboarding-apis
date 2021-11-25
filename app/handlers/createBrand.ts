@@ -10,14 +10,16 @@ const createBrand= async(event:any, context:any)=> {
   let brandRegstermodel: BrandRegisterModel = JSON.parse(event.body);
   console.info("Request Event",event);
   console.info("Request Body",event.body);
-  const id = "BR"+ new Date().getTime().toString();
+  const BrandId = "BR"+ new Date().getTime().toString();
+  const UserId = "U"+ new Date().getTime().toString();
   const now = new Date();
   const endDate = new Date();
   endDate.setHours(now.getHours() + 1);
 
   const brandRequest: any = {
-    BrandId: id, 
-    Category: brandRegstermodel.Category,
+    BrandId: BrandId, 
+    UserID:UserId,
+    Categotry: brandRegstermodel.Category,
     MobileNumber: brandRegstermodel.PhoneNumber,
     CreatedAt: now.toISOString(),
     UpdatedAt:now.toISOString(),
