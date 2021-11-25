@@ -8,17 +8,17 @@ BrandTable:
         AttributeType: S
       - AttributeName: Status
         AttributeType: S
-      - AttributeName: Categotry
+      - AttributeName: Category
         AttributeType: S
       - AttributeName: UserID
         AttributeType: S 
     KeySchema:
       - AttributeName: BrandId
         KeyType: HASH
-      - AttributeName: Categotry
+      - AttributeName: Category
         KeyType: RANGE
     LocalSecondaryIndexes:
-      - IndexName: CategotryAndUserID
+      - IndexName: CategoryAndUserID
         KeySchema:
           - AttributeName: BrandId
             KeyType: HASH

@@ -25,7 +25,4 @@ export const SaveBrand = async (brandRequest: any) => {
     body: JSON.stringify(brandRequest),
   };
 };
-
-export const GetBrand = () => {
-  console.info("Get Brand Called");
-};
+ 

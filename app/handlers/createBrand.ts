@@ -33,6 +33,4 @@ const createBrand= async(event:any, context:any)=> {
 }
 
  
- export const handler = middy(createBrand);
-   
-  //.use(validator({ inputSchema: CreateBrandSchema }));
+ export const handler = middy(createBrand); 
