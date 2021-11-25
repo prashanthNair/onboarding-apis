@@ -1,6 +1,7 @@
-import { v4 as uuid } from "uuid";  
+ 
+import commonMidleware from "../utils/commonMidleware";
 
-export const handler= async(event:any, context:any)=> { 
+export const healthCheck= async(event:any, context:any)=> { 
 
   let respose = {status:true, message: "Brand Api Health CHeck Passed"}
   return {
@@ -9,7 +10,5 @@ export const handler= async(event:any, context:any)=> {
   };
 }
 
- 
-// export const handler = commonMidleware(createBrand);
-   
-  //.use(validator({ inputSchema: CreateBrandSchema }));
+ export const handler = commonMidleware(healthCheck);
+    
