@@ -7,7 +7,7 @@ export const SaveBrand = async (brandRequest: any) => {
   try {
     let strBody =  JSON.stringify(brandRequest)
     console.info(`Save Brand Begins: String request - ${strBody}`);
-    console.info(`Save Brand Begins: Service Table - ${BrandTable}'-'${brandRequest.Categotry}`);
+    console.info(`Save Brand Begins: Service Table - ${BrandTable}'-'${brandRequest.Category}`);
     await documentClient
       .put({
         TableName: BrandTable,

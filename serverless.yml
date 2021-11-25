@@ -54,6 +54,13 @@ functions:
           method: POST
           path: / 
           cors: true 
+  updatebrand:
+    handler: app/handlers/updateBrand.handler
+    events:
+      - http:
+          method: PATCH
+          path: /updatebrand
+          cors: true
 
 custom: 
   stage: ${opt:stage, self:provider.stage}

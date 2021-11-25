@@ -1,4 +1,5 @@
 import middy from "@middy/core";
+import cors from "@middy/http-cors";
 import { v4 as uuid } from "uuid";  
 import { BrandRegisterModel } from "../model/brandRegisterModel";
 import { CreateBrandSchema } from "../schemas/createBrandSchema";
@@ -10,15 +11,17 @@ const createBrand= async(event:any, context:any)=> {
   let brandRegstermodel: BrandRegisterModel = JSON.parse(event.body);
   console.info("Request Event",event);
   console.info("Request Body",event.body);
-  const id = "BR"+ new Date().getTime().toString();
+  const BrandId = "BR"+ new Date().getTime().toString();
+  const UserId = "U"+ new Date().getTime().toString();
   const now = new Date();
   const endDate = new Date();
   endDate.setHours(now.getHours() + 1);
 
   const brandRequest: any = {
-    BrandId: id, 
+    BrandId: BrandId, 
+    UserID:UserId,
     Category: brandRegstermodel.Category,
-    MobileNumber: brandRegstermodel.PhoneNumber,
+    MobileNumber: brandRegstermodel.MobileNumber,
     CreatedAt: now.toISOString(),
     UpdatedAt:now.toISOString(),
     Status: "Active"
@@ -31,4 +34,4 @@ const createBrand= async(event:any, context:any)=> {
 }
 
  
- export const handler = middy(createBrand); 
+ export const handler =  middy(createBrand).use(cors())

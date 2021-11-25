@@ -6,7 +6,7 @@ export class BrandRegisterModel {
     Category: string; 
     Country: string;
     EmailId: string;
-    PhoneNumber: number;
+    MobileNumber: number;
     CountryCode: string;
     RegBusinessName: string;
     RegisteredType: string;
