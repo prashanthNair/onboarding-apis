@@ -19,7 +19,7 @@ const createBrand= async(event:any, context:any)=> {
   const brandRequest: any = {
     BrandId: BrandId, 
     UserID:UserId,
-    Categotry: brandRegstermodel.Category,
+    Category: brandRegstermodel.Category,
     MobileNumber: brandRegstermodel.PhoneNumber,
     CreatedAt: now.toISOString(),
     UpdatedAt:now.toISOString(),

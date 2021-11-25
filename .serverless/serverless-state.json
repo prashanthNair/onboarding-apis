@@ -116,10 +116,22 @@
               }
             }
           },
+          "BrandHealthCheckLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/brand-onboarding-rest-api-dev-brandHealthCheck"
+            }
+          },
           "CreatebrandLogGroup": {
             "Type": "AWS::Logs::LogGroup",
             "Properties": {
               "LogGroupName": "/aws/lambda/brand-onboarding-rest-api-dev-createbrand"
+            }
+          },
+          "UpdatebrandLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/brand-onboarding-rest-api-dev-updatebrand"
             }
           },
           "IamRoleLambdaExecution": {
@@ -205,6 +217,39 @@
               }
             }
           },
+          "BrandHealthCheckLambdaFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+              "Code": {
+                "S3Bucket": {
+                  "Ref": "ServerlessDeploymentBucket"
+                },
+                "S3Key": "serverless/brand-onboarding-rest-api/dev/1637832325670-2021-11-25T09:25:25.670Z/brand-onboarding-rest-api.zip"
+              },
+              "Handler": "app/handlers/health.handler",
+              "Runtime": "nodejs14.x",
+              "FunctionName": "brand-onboarding-rest-api-dev-brandHealthCheck",
+              "MemorySize": 256,
+              "Timeout": 6,
+              "Environment": {
+                "Variables": {
+                  "BRAND_TABLE_NAME": {
+                    "$ref": "$[\"service\"][\"provider\"][\"environment\"][\"BRAND_TABLE_NAME\"]"
+                  },
+                  "BRAND_BUCKET_NAME": "brand-onboarding-rest-api-dev"
+                }
+              },
+              "Role": {
+                "Fn::GetAtt": [
+                  "IamRoleLambdaExecution",
+                  "Arn"
+                ]
+              }
+            },
+            "DependsOn": [
+              "BrandHealthCheckLogGroup"
+            ]
+          },
           "CreatebrandLambdaFunction": {
             "Type": "AWS::Lambda::Function",
             "Properties": {
@@ -212,7 +257,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/brand-onboarding-rest-api/dev/1637770505587-2021-11-24T16:15:05.587Z/brand-onboarding-rest-api.zip"
+                "S3Key": "serverless/brand-onboarding-rest-api/dev/1637832325670-2021-11-25T09:25:25.670Z/brand-onboarding-rest-api.zip"
               },
               "Handler": "app/handlers/createBrand.handler",
               "Runtime": "nodejs14.x",
@@ -238,14 +283,67 @@
               "CreatebrandLogGroup"
             ]
           },
-          "CreatebrandLambdaVersionEqg9TmpQj1D2mUPdw3RnzMoTLMkpFG4cHs94w94ymdQ": {
+          "UpdatebrandLambdaFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+              "Code": {
+                "S3Bucket": {
+                  "Ref": "ServerlessDeploymentBucket"
+                },
+                "S3Key": "serverless/brand-onboarding-rest-api/dev/1637832325670-2021-11-25T09:25:25.670Z/brand-onboarding-rest-api.zip"
+              },
+              "Handler": "app/handlers/updateBrand.handler",
+              "Runtime": "nodejs14.x",
+              "FunctionName": "brand-onboarding-rest-api-dev-updatebrand",
+              "MemorySize": 256,
+              "Timeout": 6,
+              "Environment": {
+                "Variables": {
+                  "BRAND_TABLE_NAME": {
+                    "$ref": "$[\"service\"][\"provider\"][\"environment\"][\"BRAND_TABLE_NAME\"]"
+                  },
+                  "BRAND_BUCKET_NAME": "brand-onboarding-rest-api-dev"
+                }
+              },
+              "Role": {
+                "Fn::GetAtt": [
+                  "IamRoleLambdaExecution",
+                  "Arn"
+                ]
+              }
+            },
+            "DependsOn": [
+              "UpdatebrandLogGroup"
+            ]
+          },
+          "BrandHealthCheckLambdaVersionWQ9zenOjZkdHJcCC1b32APlHfuGZBK6P5zTHXlfh0": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "BrandHealthCheckLambdaFunction"
+              },
+              "CodeSha256": "X+ERKjm8GjLfI4hgQasOMHyGbqGGM90l+YBBWc9s4Co="
+            }
+          },
+          "UpdatebrandLambdaVersionJzwpcwKsCZ20yz6Si8MxKun3cWmtV9ODl6J9CWEyqAQ": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "UpdatebrandLambdaFunction"
+              },
+              "CodeSha256": "X+ERKjm8GjLfI4hgQasOMHyGbqGGM90l+YBBWc9s4Co="
+            }
+          },
+          "CreatebrandLambdaVersionanIv5yNsV3KoBZZwdWeczGYfRtgZVKk2WcfUkxbvyBc": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "CreatebrandLambdaFunction"
               },
-              "CodeSha256": "Ne8F/64i5LzTWNfjrDca6WAqkDupJE5uUCNX5qOYZqo="
+              "CodeSha256": "X+ERKjm8GjLfI4hgQasOMHyGbqGGM90l+YBBWc9s4Co="
             }
           },
           "ApiGatewayRestApi": {
@@ -260,7 +358,7 @@
               "Policy": ""
             }
           },
-          "ApiGatewayResourceBrand": {
+          "ApiGatewayResourceHealth": {
             "Type": "AWS::ApiGateway::Resource",
             "Properties": {
               "ParentId": {
@@ -269,13 +367,73 @@
                   "RootResourceId"
                 ]
               },
-              "PathPart": "brand",
+              "PathPart": "health",
               "RestApiId": {
                 "Ref": "ApiGatewayRestApi"
               }
             }
           },
-          "ApiGatewayMethodBrandOptions": {
+          "ApiGatewayResourceUpdatebrand": {
+            "Type": "AWS::ApiGateway::Resource",
+            "Properties": {
+              "ParentId": {
+                "Fn::GetAtt": [
+                  "ApiGatewayRestApi",
+                  "RootResourceId"
+                ]
+              },
+              "PathPart": "updatebrand",
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              }
+            }
+          },
+          "ApiGatewayMethodHealthOptions": {
+            "Type": "AWS::ApiGateway::Method",
+            "Properties": {
+              "AuthorizationType": "NONE",
+              "HttpMethod": "OPTIONS",
+              "MethodResponses": [
+                {
+                  "StatusCode": "200",
+                  "ResponseParameters": {
+                    "method.response.header.Access-Control-Allow-Origin": true,
+                    "method.response.header.Access-Control-Allow-Headers": true,
+                    "method.response.header.Access-Control-Allow-Methods": true
+                  },
+                  "ResponseModels": {}
+                }
+              ],
+              "RequestParameters": {},
+              "Integration": {
+                "Type": "MOCK",
+                "RequestTemplates": {
+                  "application/json": "{statusCode:200}"
+                },
+                "ContentHandling": "CONVERT_TO_TEXT",
+                "IntegrationResponses": [
+                  {
+                    "StatusCode": "200",
+                    "ResponseParameters": {
+                      "method.response.header.Access-Control-Allow-Origin": "'*'",
+                      "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                      "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET'"
+                    },
+                    "ResponseTemplates": {
+                      "application/json": ""
+                    }
+                  }
+                ]
+              },
+              "ResourceId": {
+                "Ref": "ApiGatewayResourceHealth"
+              },
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              }
+            }
+          },
+          "ApiGatewayMethodOptions": {
             "Type": "AWS::ApiGateway::Method",
             "Properties": {
               "AuthorizationType": "NONE",
@@ -313,20 +471,117 @@
                 ]
               },
               "ResourceId": {
-                "Ref": "ApiGatewayResourceBrand"
+                "Fn::GetAtt": [
+                  "ApiGatewayRestApi",
+                  "RootResourceId"
+                ]
               },
               "RestApiId": {
                 "Ref": "ApiGatewayRestApi"
               }
             }
           },
-          "ApiGatewayMethodBrandPost": {
+          "ApiGatewayMethodUpdatebrandOptions": {
+            "Type": "AWS::ApiGateway::Method",
+            "Properties": {
+              "AuthorizationType": "NONE",
+              "HttpMethod": "OPTIONS",
+              "MethodResponses": [
+                {
+                  "StatusCode": "200",
+                  "ResponseParameters": {
+                    "method.response.header.Access-Control-Allow-Origin": true,
+                    "method.response.header.Access-Control-Allow-Headers": true,
+                    "method.response.header.Access-Control-Allow-Methods": true
+                  },
+                  "ResponseModels": {}
+                }
+              ],
+              "RequestParameters": {},
+              "Integration": {
+                "Type": "MOCK",
+                "RequestTemplates": {
+                  "application/json": "{statusCode:200}"
+                },
+                "ContentHandling": "CONVERT_TO_TEXT",
+                "IntegrationResponses": [
+                  {
+                    "StatusCode": "200",
+                    "ResponseParameters": {
+                      "method.response.header.Access-Control-Allow-Origin": "'*'",
+                      "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                      "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,PATCH'"
+                    },
+                    "ResponseTemplates": {
+                      "application/json": ""
+                    }
+                  }
+                ]
+              },
+              "ResourceId": {
+                "Ref": "ApiGatewayResourceUpdatebrand"
+              },
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              }
+            }
+          },
+          "ApiGatewayMethodHealthGet": {
+            "Type": "AWS::ApiGateway::Method",
+            "Properties": {
+              "HttpMethod": "GET",
+              "RequestParameters": {},
+              "ResourceId": {
+                "Ref": "ApiGatewayResourceHealth"
+              },
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              },
+              "ApiKeyRequired": false,
+              "AuthorizationType": "NONE",
+              "Integration": {
+                "IntegrationHttpMethod": "POST",
+                "Type": "AWS_PROXY",
+                "Uri": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":apigateway:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":lambda:path/2015-03-31/functions/",
+                      {
+                        "Fn::GetAtt": [
+                          "BrandHealthCheckLambdaFunction",
+                          "Arn"
+                        ]
+                      },
+                      "/invocations"
+                    ]
+                  ]
+                }
+              },
+              "MethodResponses": []
+            },
+            "DependsOn": [
+              "BrandHealthCheckLambdaPermissionApiGateway"
+            ]
+          },
+          "ApiGatewayMethodPost": {
             "Type": "AWS::ApiGateway::Method",
             "Properties": {
               "HttpMethod": "POST",
               "RequestParameters": {},
               "ResourceId": {
-                "Ref": "ApiGatewayResourceBrand"
+                "Fn::GetAtt": [
+                  "ApiGatewayRestApi",
+                  "RootResourceId"
+                ]
               },
               "RestApiId": {
                 "Ref": "ApiGatewayRestApi"
@@ -366,7 +621,53 @@
               "CreatebrandLambdaPermissionApiGateway"
             ]
           },
-          "ApiGatewayDeployment1637770305949": {
+          "ApiGatewayMethodUpdatebrandPatch": {
+            "Type": "AWS::ApiGateway::Method",
+            "Properties": {
+              "HttpMethod": "PATCH",
+              "RequestParameters": {},
+              "ResourceId": {
+                "Ref": "ApiGatewayResourceUpdatebrand"
+              },
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              },
+              "ApiKeyRequired": false,
+              "AuthorizationType": "NONE",
+              "Integration": {
+                "IntegrationHttpMethod": "POST",
+                "Type": "AWS_PROXY",
+                "Uri": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":apigateway:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":lambda:path/2015-03-31/functions/",
+                      {
+                        "Fn::GetAtt": [
+                          "UpdatebrandLambdaFunction",
+                          "Arn"
+                        ]
+                      },
+                      "/invocations"
+                    ]
+                  ]
+                }
+              },
+              "MethodResponses": []
+            },
+            "DependsOn": [
+              "UpdatebrandLambdaPermissionApiGateway"
+            ]
+          },
+          "ApiGatewayDeployment1637832130488": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -375,9 +676,50 @@
               "StageName": "dev"
             },
             "DependsOn": [
-              "ApiGatewayMethodBrandOptions",
-              "ApiGatewayMethodBrandPost"
+              "ApiGatewayMethodHealthOptions",
+              "ApiGatewayMethodOptions",
+              "ApiGatewayMethodUpdatebrandOptions",
+              "ApiGatewayMethodHealthGet",
+              "ApiGatewayMethodPost",
+              "ApiGatewayMethodUpdatebrandPatch"
             ]
+          },
+          "BrandHealthCheckLambdaPermissionApiGateway": {
+            "Type": "AWS::Lambda::Permission",
+            "Properties": {
+              "FunctionName": {
+                "Fn::GetAtt": [
+                  "BrandHealthCheckLambdaFunction",
+                  "Arn"
+                ]
+              },
+              "Action": "lambda:InvokeFunction",
+              "Principal": "apigateway.amazonaws.com",
+              "SourceArn": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":execute-api:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":",
+                    {
+                      "Ref": "ApiGatewayRestApi"
+                    },
+                    "/*/*"
+                  ]
+                ]
+              }
+            }
           },
           "CreatebrandLambdaPermissionApiGateway": {
             "Type": "AWS::Lambda::Permission",
@@ -385,6 +727,43 @@
               "FunctionName": {
                 "Fn::GetAtt": [
                   "CreatebrandLambdaFunction",
+                  "Arn"
+                ]
+              },
+              "Action": "lambda:InvokeFunction",
+              "Principal": "apigateway.amazonaws.com",
+              "SourceArn": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":execute-api:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":",
+                    {
+                      "Ref": "ApiGatewayRestApi"
+                    },
+                    "/*/*"
+                  ]
+                ]
+              }
+            }
+          },
+          "UpdatebrandLambdaPermissionApiGateway": {
+            "Type": "AWS::Lambda::Permission",
+            "Properties": {
+              "FunctionName": {
+                "Fn::GetAtt": [
+                  "UpdatebrandLambdaFunction",
                   "Arn"
                 ]
               },
@@ -431,7 +810,7 @@
                   "AttributeType": "S"
                 },
                 {
-                  "AttributeName": "Categotry",
+                  "AttributeName": "Category",
                   "AttributeType": "S"
                 },
                 {
@@ -445,13 +824,13 @@
                   "KeyType": "HASH"
                 },
                 {
-                  "AttributeName": "Categotry",
+                  "AttributeName": "Category",
                   "KeyType": "RANGE"
                 }
               ],
               "LocalSecondaryIndexes": [
                 {
-                  "IndexName": "CategotryAndUserID",
+                  "IndexName": "CategoryAndUserID",
                   "KeySchema": [
                     {
                       "AttributeName": "BrandId",
@@ -531,10 +910,28 @@
               "Name": "sls-brand-onboarding-rest-api-dev-ServerlessDeploymentBucketName"
             }
           },
+          "BrandHealthCheckLambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+              "Ref": "BrandHealthCheckLambdaVersionWQ9zenOjZkdHJcCC1b32APlHfuGZBK6P5zTHXlfh0"
+            },
+            "Export": {
+              "Name": "sls-brand-onboarding-rest-api-dev-BrandHealthCheckLambdaFunctionQualifiedArn"
+            }
+          },
+          "UpdatebrandLambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+              "Ref": "UpdatebrandLambdaVersionJzwpcwKsCZ20yz6Si8MxKun3cWmtV9ODl6J9CWEyqAQ"
+            },
+            "Export": {
+              "Name": "sls-brand-onboarding-rest-api-dev-UpdatebrandLambdaFunctionQualifiedArn"
+            }
+          },
           "CreatebrandLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "CreatebrandLambdaVersionEqg9TmpQj1D2mUPdw3RnzMoTLMkpFG4cHs94w94ymdQ"
+              "Ref": "CreatebrandLambdaVersionanIv5yNsV3KoBZZwdWeczGYfRtgZVKk2WcfUkxbvyBc"
             },
             "Export": {
               "Name": "sls-brand-onboarding-rest-api-dev-CreatebrandLambdaFunctionQualifiedArn"
@@ -653,6 +1050,10 @@
       "vpc": {}
     },
     "custom": {
+      "stage": "dev",
+      "domains": {
+        "dev": "api.migobucks.com"
+      },
       "BrandTable": {
         "name": {
           "Ref": "BrandTable"
@@ -667,23 +1068,71 @@
       "BrandBucket": {
         "name": "brand-onboarding-rest-api-dev"
       },
+      "customDomain": {
+        "domainName": "api.migobucks.com",
+        "basePath": "brand",
+        "stage": "dev",
+        "createRoute53Record": true
+      },
       "bundle": {
         "linting": false
       }
     },
     "plugins": [
       "serverless-offline",
-      "serverless-plugin-typescript"
+      "serverless-plugin-typescript",
+      "serverless-domain-manager"
     ],
     "pluginsData": {},
     "functions": {
+      "brandHealthCheck": {
+        "handler": "app/handlers/health.handler",
+        "events": [
+          {
+            "http": {
+              "method": "get",
+              "path": "health",
+              "cors": {
+                "origin": "*",
+                "methods": [
+                  "OPTIONS",
+                  "GET"
+                ],
+                "headers": [
+                  "Content-Type",
+                  "X-Amz-Date",
+                  "Authorization",
+                  "X-Api-Key",
+                  "X-Amz-Security-Token",
+                  "X-Amz-User-Agent"
+                ],
+                "allowCredentials": false
+              },
+              "integration": "AWS_PROXY"
+            }
+          }
+        ],
+        "name": "brand-onboarding-rest-api-dev-brandHealthCheck",
+        "package": {
+          "exclude": [
+            "node_modules/serverless-plugin-typescript"
+          ],
+          "include": [],
+          "patterns": []
+        },
+        "memory": 256,
+        "timeout": 6,
+        "runtime": "nodejs14.x",
+        "vpc": {},
+        "versionLogicalId": "BrandHealthCheckLambdaVersionWQ9zenOjZkdHJcCC1b32APlHfuGZBK6P5zTHXlfh0"
+      },
       "createbrand": {
         "handler": "app/handlers/createBrand.handler",
         "events": [
           {
             "http": {
               "method": "post",
-              "path": "brand",
+              "path": "",
               "cors": {
                 "origin": "*",
                 "methods": [
@@ -716,7 +1165,48 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "CreatebrandLambdaVersionEqg9TmpQj1D2mUPdw3RnzMoTLMkpFG4cHs94w94ymdQ"
+        "versionLogicalId": "CreatebrandLambdaVersionanIv5yNsV3KoBZZwdWeczGYfRtgZVKk2WcfUkxbvyBc"
+      },
+      "updatebrand": {
+        "handler": "app/handlers/updateBrand.handler",
+        "events": [
+          {
+            "http": {
+              "method": "patch",
+              "path": "updatebrand",
+              "cors": {
+                "origin": "*",
+                "methods": [
+                  "OPTIONS",
+                  "PATCH"
+                ],
+                "headers": [
+                  "Content-Type",
+                  "X-Amz-Date",
+                  "Authorization",
+                  "X-Api-Key",
+                  "X-Amz-Security-Token",
+                  "X-Amz-User-Agent"
+                ],
+                "allowCredentials": false
+              },
+              "integration": "AWS_PROXY"
+            }
+          }
+        ],
+        "name": "brand-onboarding-rest-api-dev-updatebrand",
+        "package": {
+          "exclude": [
+            "node_modules/serverless-plugin-typescript"
+          ],
+          "include": [],
+          "patterns": []
+        },
+        "memory": 256,
+        "timeout": 6,
+        "runtime": "nodejs14.x",
+        "vpc": {},
+        "versionLogicalId": "UpdatebrandLambdaVersionJzwpcwKsCZ20yz6Si8MxKun3cWmtV9ODl6J9CWEyqAQ"
       }
     },
     "resources": {
@@ -736,7 +1226,7 @@
                 "AttributeType": "S"
               },
               {
-                "AttributeName": "Categotry",
+                "AttributeName": "Category",
                 "AttributeType": "S"
               },
               {
@@ -750,13 +1240,13 @@
                 "KeyType": "HASH"
               },
               {
-                "AttributeName": "Categotry",
+                "AttributeName": "Category",
                 "KeyType": "RANGE"
               }
             ],
             "LocalSecondaryIndexes": [
               {
-                "IndexName": "CategotryAndUserID",
+                "IndexName": "CategoryAndUserID",
                 "KeySchema": [
                   {
                     "AttributeName": "BrandId",
@@ -856,7 +1346,7 @@
     "artifact": "D:\\Work\\Git\\mib-rest-apis\\brand-onboarding-apis\\.build\\.serverless\\brand-onboarding-rest-api.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/brand-onboarding-rest-api/dev/1637770505587-2021-11-24T16:15:05.587Z",
+    "artifactDirectoryName": "serverless/brand-onboarding-rest-api/dev/1637832325670-2021-11-25T09:25:25.670Z",
     "artifact": "brand-onboarding-rest-api.zip"
   }
 }
