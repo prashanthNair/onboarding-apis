@@ -1,0 +1,15 @@
+image: node:latest
+
+stages:
+  - deploy
+
+production:
+  stage: deploy
+  before_script:
+    - npm config set prefix /usr/local
+    - npm install serverless-plugin-typescript
+    - npm install -g serverless
+    - npm install -g serverless
+  script:
+    - serverless deploy --stage dev --verbose
+  environment: dev
