@@ -6,8 +6,7 @@ cache:
 
 stages:
   - build
-  - precheck
-  - test
+  - precheck 
   - deploy
 
 build-docker-image:
@@ -56,7 +55,7 @@ staging_deploy:
   stage: deploy
   image: $CI_REGISTRY_IMAGE:latest
   only:
-    - develop
+    - dev
   script:
     - npm ci
     - cd / && serverless config credentials --provider aws --key $AWS_ACCESS_KEY_ID_DEV --secret $AWS_SECRET_ACCESS_KEY_DEV && cd -
@@ -68,7 +67,7 @@ production_deploy:
   stage: deploy
   image: $CI_REGISTRY_IMAGE:latest
   only:
-    - master
+    - main
   script:
     - npm ci
     - cd / && serverless config credentials --provider aws --key $AWS_ACCESS_KEY_ID_PROD
