@@ -20,11 +20,26 @@ const createBrand= async(event:any, context:any)=> {
   const brandRequest: any = {
     BrandId: BrandId, 
     UserID:UserId,
+    BrandName:brandRegstermodel.BrandName,
+    Domain:brandRegstermodel.Domain,
     Category: brandRegstermodel.Category,
     MobileNumber: brandRegstermodel.MobileNumber,
+    EmailId:brandRegstermodel.EmailId,
+    Country:brandRegstermodel.Country,
+    Subscriptions:{"subscription Name":"MigoInventory"},
+    CountryCode: brandRegstermodel.CountryCode,
+    RegBusinessName: brandRegstermodel.RegBusinessName,
+    RegisteredType: brandRegstermodel.RegisteredType,
+    BrandUrl:brandRegstermodel.BrandUrl,
+    Tags:brandRegstermodel.Tags,
+    PAN:brandRegstermodel.PAN,
+    GST:brandRegstermodel.GST,
+    Address:brandRegstermodel.Address,
+    UserName: brandRegstermodel.UserName,  
+    AccountPassword: brandRegstermodel.AccountPassword,
     CreatedAt: now.toISOString(),
     UpdatedAt:now.toISOString(),
-    Status: "Active"
+    Status: "Active",
   };
   let response = await SaveBrand(brandRequest);
   return {

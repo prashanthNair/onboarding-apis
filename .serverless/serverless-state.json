@@ -224,7 +224,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/brand-onboarding-rest-api/dev/1637835901027-2021-11-25T10:25:01.027Z/brand-onboarding-rest-api.zip"
+                "S3Key": "serverless/brand-onboarding-rest-api/dev/1637936664558-2021-11-26T14:24:24.558Z/brand-onboarding-rest-api.zip"
               },
               "Handler": "app/handlers/health.handler",
               "Runtime": "nodejs14.x",
@@ -257,7 +257,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/brand-onboarding-rest-api/dev/1637835901027-2021-11-25T10:25:01.027Z/brand-onboarding-rest-api.zip"
+                "S3Key": "serverless/brand-onboarding-rest-api/dev/1637936664558-2021-11-26T14:24:24.558Z/brand-onboarding-rest-api.zip"
               },
               "Handler": "app/handlers/createBrand.handler",
               "Runtime": "nodejs14.x",
@@ -290,7 +290,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/brand-onboarding-rest-api/dev/1637835901027-2021-11-25T10:25:01.027Z/brand-onboarding-rest-api.zip"
+                "S3Key": "serverless/brand-onboarding-rest-api/dev/1637936664558-2021-11-26T14:24:24.558Z/brand-onboarding-rest-api.zip"
               },
               "Handler": "app/handlers/updateBrand.handler",
               "Runtime": "nodejs14.x",
@@ -316,34 +316,34 @@
               "UpdatebrandLogGroup"
             ]
           },
-          "BrandHealthCheckLambdaVersionkSBzqhmZ8SkyHCIHZW2PJxjJzI0bwKhrIjOpE2Zkg": {
+          "BrandHealthCheckLambdaVersionIisuaH3FVFnT3D5ZX2wX3Zc3yHSEsR8jZPakU4qAw": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "BrandHealthCheckLambdaFunction"
               },
-              "CodeSha256": "Rd2D7QCveUqK+sJgIkciIPvL7R8NSQUbqW/EBTafVXc="
+              "CodeSha256": "7hEzY0eCWh2JRMGyXnkRPoV3GWQihhXsSHjAcEvecug="
             }
           },
-          "CreatebrandLambdaVersionrCfZ8FrMcrfOdirY7DIJtv5FC5to2UFllGYTcv98k": {
+          "CreatebrandLambdaVersionDCPETqAVaifMbtWIQQ7qfhxZChQPPXR4IH3loj2ahxc": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "CreatebrandLambdaFunction"
               },
-              "CodeSha256": "Rd2D7QCveUqK+sJgIkciIPvL7R8NSQUbqW/EBTafVXc="
+              "CodeSha256": "7hEzY0eCWh2JRMGyXnkRPoV3GWQihhXsSHjAcEvecug="
             }
           },
-          "UpdatebrandLambdaVersionNzxHqloe1LQDinIO5hlgqpTVoWmwzhwgbffGhxjs": {
+          "UpdatebrandLambdaVersionMca5xf0fJ1MSCjUKdIlzd34B7qtGlFIMOc7gOkaKGw": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "UpdatebrandLambdaFunction"
               },
-              "CodeSha256": "Rd2D7QCveUqK+sJgIkciIPvL7R8NSQUbqW/EBTafVXc="
+              "CodeSha256": "7hEzY0eCWh2JRMGyXnkRPoV3GWQihhXsSHjAcEvecug="
             }
           },
           "ApiGatewayRestApi": {
@@ -667,7 +667,7 @@
               "UpdatebrandLambdaPermissionApiGateway"
             ]
           },
-          "ApiGatewayDeployment1637835661232": {
+          "ApiGatewayDeployment1637936136150": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -913,7 +913,7 @@
           "BrandHealthCheckLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "BrandHealthCheckLambdaVersionkSBzqhmZ8SkyHCIHZW2PJxjJzI0bwKhrIjOpE2Zkg"
+              "Ref": "BrandHealthCheckLambdaVersionIisuaH3FVFnT3D5ZX2wX3Zc3yHSEsR8jZPakU4qAw"
             },
             "Export": {
               "Name": "sls-brand-onboarding-rest-api-dev-BrandHealthCheckLambdaFunctionQualifiedArn"
@@ -922,7 +922,7 @@
           "CreatebrandLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "CreatebrandLambdaVersionrCfZ8FrMcrfOdirY7DIJtv5FC5to2UFllGYTcv98k"
+              "Ref": "CreatebrandLambdaVersionDCPETqAVaifMbtWIQQ7qfhxZChQPPXR4IH3loj2ahxc"
             },
             "Export": {
               "Name": "sls-brand-onboarding-rest-api-dev-CreatebrandLambdaFunctionQualifiedArn"
@@ -931,7 +931,7 @@
           "UpdatebrandLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "UpdatebrandLambdaVersionNzxHqloe1LQDinIO5hlgqpTVoWmwzhwgbffGhxjs"
+              "Ref": "UpdatebrandLambdaVersionMca5xf0fJ1MSCjUKdIlzd34B7qtGlFIMOc7gOkaKGw"
             },
             "Export": {
               "Name": "sls-brand-onboarding-rest-api-dev-UpdatebrandLambdaFunctionQualifiedArn"
@@ -1124,7 +1124,7 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "BrandHealthCheckLambdaVersionkSBzqhmZ8SkyHCIHZW2PJxjJzI0bwKhrIjOpE2Zkg"
+        "versionLogicalId": "BrandHealthCheckLambdaVersionIisuaH3FVFnT3D5ZX2wX3Zc3yHSEsR8jZPakU4qAw"
       },
       "createbrand": {
         "handler": "app/handlers/createBrand.handler",
@@ -1165,7 +1165,7 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "CreatebrandLambdaVersionrCfZ8FrMcrfOdirY7DIJtv5FC5to2UFllGYTcv98k"
+        "versionLogicalId": "CreatebrandLambdaVersionDCPETqAVaifMbtWIQQ7qfhxZChQPPXR4IH3loj2ahxc"
       },
       "updatebrand": {
         "handler": "app/handlers/updateBrand.handler",
@@ -1206,7 +1206,7 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "UpdatebrandLambdaVersionNzxHqloe1LQDinIO5hlgqpTVoWmwzhwgbffGhxjs"
+        "versionLogicalId": "UpdatebrandLambdaVersionMca5xf0fJ1MSCjUKdIlzd34B7qtGlFIMOc7gOkaKGw"
       }
     },
     "resources": {
@@ -1346,7 +1346,7 @@
     "artifact": "D:\\Work\\Git\\mib-rest-apis\\brand-onboarding-apis\\.build\\.serverless\\brand-onboarding-rest-api.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/brand-onboarding-rest-api/dev/1637835901027-2021-11-25T10:25:01.027Z",
+    "artifactDirectoryName": "serverless/brand-onboarding-rest-api/dev/1637936664558-2021-11-26T14:24:24.558Z",
     "artifact": "brand-onboarding-rest-api.zip"
   }
 }
