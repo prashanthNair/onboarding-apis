@@ -54,12 +54,19 @@ functions:
           method: POST
           path: / 
           cors: true 
-  updatebrand:
-    handler: app/handlers/updateBrand.handler
+  updatebrandpersonalinfo:
+    handler: app/handlers/updateBrandPersonalInfo.handler
     events:
       - http:
           method: PATCH
-          path: /updatebrand
+          path: /updatebrand/personalInfo
+          cors: true
+  getbrand:
+    handler: app/handlers/getBrand.handler
+    events:
+      - http:
+          method: GET
+          path: /updatebrand/{BrandId}
           cors: true
 
 custom: 

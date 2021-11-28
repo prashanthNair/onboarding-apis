@@ -11,7 +11,7 @@ export class BrandRegisterModel {
     RegBusinessName: string;
     RegisteredType: string;
     BrandUrl:string;
-    Tags:string;
+    Tags:Array<string>;
     PAN:string;
     GST:string;
     Address:Address;

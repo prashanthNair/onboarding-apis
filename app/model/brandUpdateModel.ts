@@ -10,12 +10,13 @@ export class BrandUpdateModel {
     CreatedDate: string;
     Domain: string;
     EmailId: string;
-    lastUpdatedDate: string;
+    UpdatedAt: string;
     MobileNumber: string;
     RegBusinessName: string;
     RegisteredType: string;
     Subscriptions: string;
     Address:Address;
+    GST:string;
     }
     class Address {
         Street: string;
