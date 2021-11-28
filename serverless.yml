@@ -61,6 +61,13 @@ functions:
           method: PATCH
           path: /updatebrand/personalInfo
           cors: true
+  getbrand:
+    handler: app/handlers/getBrand.handler
+    events:
+      - http:
+          method: GET
+          path: /updatebrand/{BrandId}
+          cors: true
 
 custom: 
   stage: ${opt:stage, self:provider.stage}

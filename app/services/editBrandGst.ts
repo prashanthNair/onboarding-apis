@@ -2,7 +2,7 @@ import { documentClient, dynamoDB } from "../utils/config";
 import { BrandTable } from "../utils/constants";
 import createError from "http-errors";
 
-export const editBrandPersonalInfo = async (brandRequest: any) => {
+export const editBrandGst = async (brandRequest: any) => {
   try {
     const params = {
       TableName: BrandTable,
@@ -11,22 +11,12 @@ export const editBrandPersonalInfo = async (brandRequest: any) => {
         Category: brandRequest.Category,
       },
       ExpressionAttributeNames: {
-        "#MobileNumber": "MobileNumber",
-        "#brandname": "BrandName",
-        "#country": "Country",
-        "#countrycode": "CountryCode",
-        "#emailid": "EmailId",
-        "#lastupdateddate": "UpdatedAt"
+        "#GST": "GST",
       },
       ExpressionAttributeValues: {
-        ":MobileNumber": brandRequest.MobileNumber,
-        ":BrandName": brandRequest.BrandName,
-        ":Country": brandRequest.Country,
-        ":CountryCode": brandRequest.CountryCode,
-        ":EmailId": brandRequest.EmailId,
-        ":UpdatedAt": brandRequest.UpdatedAt,
+        ":GST": brandRequest.GST
       },
-      UpdateExpression: "SET #MobileNumber = :MobileNumber, #brandname = :BrandName , #country = :Country, #countrycode = :CountryCode, #emailid = :EmailId , #lastupdateddate = :UpdatedAt ",
+      UpdateExpression: "SET #GST = :GST ",
       ReturnValues: "ALL_NEW",
     };
 

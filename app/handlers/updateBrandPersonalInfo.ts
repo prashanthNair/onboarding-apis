@@ -1,7 +1,7 @@
 import middy from "@middy/core";
 import cors from "@middy/http-cors";
 import { BrandUpdateModel } from "../model/brandUpdateModel";
-import { editBrand } from "../services/editBrandPersonalInfo";
+import { editBrandPersonalInfo } from "../services/editBrandPersonalInfo";
 
 
 
@@ -18,7 +18,7 @@ const updateBrandContact = async (event: any, context: any) => {
     EmailId:brandUpdateModel.EmailId,
     UpdatedAt:now
   }
-  let response = await editBrand(brandrequest);
+  let response = await editBrandPersonalInfo(brandrequest);
   return {
     statusCode: 200,
     body: JSON.stringify(response),

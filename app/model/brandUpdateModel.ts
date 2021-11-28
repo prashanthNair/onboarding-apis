@@ -16,6 +16,7 @@ export class BrandUpdateModel {
     RegisteredType: string;
     Subscriptions: string;
     Address:Address;
+    GST:string;
     }
     class Address {
         Street: string;
