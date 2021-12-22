@@ -6,17 +6,18 @@ export class BrandRegisterModel {
     Category: string; 
     Country: string;
     EmailId: string;
-    MobileNumber: number;
+    Mobile: number;
     CountryCode: string;
     RegBusinessName: string;
     RegisteredType: string;
     BrandUrl:string;
     Tags:Array<string>;
     PAN:string;
-    GST:string;
+    
+    GSTN:string;
     Address:Address;
-    UserName: string;  
-    AccountPassword: string;
+    Name: string;  
+    Password: string;
     CreatedDate:string;
     LastUpdatedDate:string;
 
@@ -28,3 +29,4 @@ export class BrandRegisterModel {
     State: string;
     PostalCode: number;
   }
+  

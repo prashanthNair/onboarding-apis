@@ -1,8 +1,8 @@
 export class BrandUpdateModel {
     BrandId: string;
     Status: string;
-    UserName: string;
-    AccountPassword: string;
+    Name: string;
+    Password: string;
     BrandName: string;
     Category: string;
     Country: string;
@@ -11,12 +11,13 @@ export class BrandUpdateModel {
     Domain: string;
     EmailId: string;
     UpdatedAt: string;
-    MobileNumber: string;
+    Mobile: string;
     RegBusinessName: string;
     RegisteredType: string;
     Subscriptions: string;
     Address:Address;
-    GST:string;
+    GSTN:string;
+    BankDetails:BankDetails
     }
     class Address {
         Street: string;
@@ -24,3 +25,9 @@ export class BrandUpdateModel {
         State: string;
         PostalCode: number;
       }
+class BankDetails{
+  BeneficiaryName: String;
+  BranchIfscCode:string;
+  AccountNumber:string;
+  AccountHolderame:string;
+}

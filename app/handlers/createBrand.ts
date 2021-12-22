@@ -17,31 +17,39 @@ const createBrand= async(event:any, context:any)=> {
   const endDate = new Date();
   endDate.setHours(now.getHours() + 1);
   const subscription= [{subscriptionName:"MigoInventory"}]
+  const bankDetails= {
+    BeneficiaryName: "",
+    BranchIfscCode:"",
+    AccountNumber:"",
+    AccountHolderame:""
+  }
   
   
   const brandRequest: any = {
     BrandId: BrandId, 
     UserID:UserId,
-    BrandName:brandRegstermodel.BrandName,
+    BrandName:brandRegstermodel.BrandName?brandRegstermodel.BrandName:"",
     Domain:brandRegstermodel.Domain,
-    Category: brandRegstermodel.Category,
-    MobileNumber: brandRegstermodel.MobileNumber,
+    Category: brandRegstermodel.Category?brandRegstermodel.Category:"All",
+    Mobile: brandRegstermodel.Mobile?brandRegstermodel.Mobile:"",
     EmailId:brandRegstermodel.EmailId,
     Country:brandRegstermodel.Country,
     Subscriptions:subscription,
-    CountryCode: brandRegstermodel.CountryCode,
+    CountryCode: brandRegstermodel.CountryCode?brandRegstermodel.CountryCode:"+91",
     RegBusinessName: brandRegstermodel.RegBusinessName?brandRegstermodel.RegBusinessName:"",
     RegisteredType: brandRegstermodel.RegisteredType?brandRegstermodel.RegisteredType:"",
     BrandUrl:brandRegstermodel.BrandUrl?brandRegstermodel.BrandUrl:"",
     Tags:brandRegstermodel.Tags?brandRegstermodel.Tags:[],
+    BankDetails:bankDetails,
     PAN:brandRegstermodel.PAN?brandRegstermodel.PAN:"",
-    GST:brandRegstermodel.GST?brandRegstermodel.GST:null,
+    GSTN:brandRegstermodel.GSTN?brandRegstermodel.GSTN:"",
     Address:brandRegstermodel.Address,
-    UserName: brandRegstermodel.UserName,  
-    AccountPassword: brandRegstermodel.AccountPassword,
+    Name: brandRegstermodel.Name?brandRegstermodel.Name:"",
+    Password: brandRegstermodel.Password,
     CreatedAt: now.toISOString(),
     UpdatedAt:now.toISOString(),
     Status: "Active",
+    
   };
   let response = await SaveBrand(brandRequest);
   return {
