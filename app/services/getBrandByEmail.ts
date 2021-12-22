@@ -5,17 +5,19 @@ import AWS from "aws-sdk";
 
 
 
-export const getBrandDetails = async (params) => {
+export const getBrandDetailsByEmail = async (params) => {
 
     try {
         let query = {
-          Statement: `SELECT * FROM "${BrandTable}" where BrandId = '${params}'`,
+          Statement: `SELECT * FROM "${BrandTable}" where EmailId = '${params}'`,
         };
-        var result = await dynamoDB.executeStatement(query).promise();
         var result = await dynamoDB.executeStatement(query).promise();
         var converted = result.Items.map((el) =>
       AWS.DynamoDB.Converter.unmarshall(el)
-        );
+    );
+    // return converted;
+    
+
 
       } catch (error: any) {
         console.error(error);
@@ -26,5 +28,3 @@ export const getBrandDetails = async (params) => {
         body: JSON.stringify(converted),
       };
     };
-    
-

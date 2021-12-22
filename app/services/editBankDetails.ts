@@ -2,7 +2,7 @@ import { documentClient, dynamoDB } from "../utils/config";
 import { BrandTable } from "../utils/constants";
 import createError from "http-errors";
 
-export const editBrandPersonalInfo = async (brandRequest: any) => {
+export const editBankDetails = async (brandRequest: any) => {
   try {
     const params = {
       TableName: BrandTable,
@@ -10,23 +10,21 @@ export const editBrandPersonalInfo = async (brandRequest: any) => {
         BrandId: brandRequest.BrandId,
         Category: brandRequest.Category,
       },
-      ExpressionAttributeNames: {
-        "#MobileNumber": "MobileNumber",
-        "#brandname": "BrandName",
-        "#country": "Country",
-        "#countrycode": "CountryCode",
-        "#emailid": "EmailId",
-        "#lastupdateddate": "UpdatedAt"
-      },
+      // ExpressionAttributeNames: {
+      //   // "#BeneficiaryName": "BeneficiaryName",
+      //   // "#BranchIfscCode": "BranchIfscCode",
+      //   // "#AccountNumber": "AccountNumber",
+      //   // "#AccountHolderame": "AccountHolderame"
+      //   "#BankDetails": "BankDetails"
+      // },
       ExpressionAttributeValues: {
-        ":MobileNumber": brandRequest.MobileNumber,
-        ":BrandName": brandRequest.BrandName,
-        ":Country": brandRequest.Country,
-        ":CountryCode": brandRequest.CountryCode,
-        ":EmailId": brandRequest.EmailId,
-        ":UpdatedAt": brandRequest.UpdatedAt,
+        ":BeneficiaryName": brandRequest.BeneficiaryName,
+        ":BranchIfscCode": brandRequest.BranchIfscCode,
+        ":AccountNumber": brandRequest.AccountNumber,
+        ":AccountHolderame": brandRequest.AccountHolderame
+        // ":BankDetails": brandRequest.AccountHolderame
       },
-      UpdateExpression: "SET #MobileNumber = :MobileNumber, #brandname = :BrandName , #country = :Country, #countrycode = :CountryCode, #emailid = :EmailId , #lastupdateddate = :UpdatedAt ",
+      UpdateExpression: "SET BankDetails.BeneficiaryName = :BeneficiaryName ,BankDetails.BranchIfscCode = :BranchIfscCode ,BankDetails.AccountNumber = :AccountNumber ,BankDetails.AccountHolderame = :AccountHolderame ",
       ReturnValues: "ALL_NEW",
     };
 
