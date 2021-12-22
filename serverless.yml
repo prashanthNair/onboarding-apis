@@ -59,7 +59,7 @@ functions:
     events:
       - http:
           method: PATCH
-          path: /{BrandId}/BrandInfo
+          path: /{BrandId}/brandinfo
           cors: true
   getbrand:
     handler: app/handlers/getBrand.handler
@@ -73,14 +73,14 @@ functions:
     events:
       - http:
           method: PATCH
-          path: /BankDetails/{BrandId}
+          path: /bankdetails/{BrandId}
           cors: true
   getbrandbyemail:
     handler: app/handlers/getBrandByEmail.handler
     events:
       - http:
           method: GET
-          path: /BrandDetails/{EmailId}
+          path: /branddetails/{EmailId}
           cors: true
 
 custom: 
