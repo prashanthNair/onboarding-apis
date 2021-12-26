@@ -75,6 +75,13 @@ functions:
           method: PATCH
           path: /bankdetails/{BrandId}
           cors: true
+  updatebusinessdetails:
+    handler: app/handlers/updateBusinessDetails.handler
+    events:
+      - http:
+          method: PATCH
+          path: /businessdetails
+          cors: true
   getbrandbyemail:
     handler: app/handlers/getBrandByEmail.handler
     events:
