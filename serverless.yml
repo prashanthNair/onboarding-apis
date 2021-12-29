@@ -82,6 +82,13 @@ functions:
           method: GET
           path: /branddetails/{EmailId}
           cors: true
+  updatebusinessoverview:
+    handler: app/handlers/updateBusinessOverview.handler
+    events:
+      - http:
+          method: PATCH
+          path: /branddetails/{BrandId}/businessOverview
+          cors: true
 
 custom: 
   stage: ${opt:stage, self:provider.stage}

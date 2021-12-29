@@ -17,7 +17,8 @@ export class BrandUpdateModel {
     Subscriptions: string;
     Address:Address;
     GSTN:string;
-    BankDetails:BankDetails
+    BankDetails:BankDetails;
+    BusinessOverview:BusinessOverview;
     }
     class Address {
         Street: string;
@@ -30,4 +31,11 @@ class BankDetails{
   BranchIfscCode:string;
   AccountNumber:string;
   AccountHolderame:string;
+}
+
+class BusinessOverview  {
+  BusinessName: string;
+  BusinessCategory: string;
+  BusinessDiscription: string;
+  Website: string;
 }

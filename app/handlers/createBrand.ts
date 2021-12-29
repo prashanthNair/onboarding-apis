@@ -23,6 +23,13 @@ const createBrand= async(event:any, context:any)=> {
     AccountNumber:"",
     AccountHolderame:""
   }
+
+  const businessOverview = {
+    BusinessName: "",
+    BusinessCategory:"",
+    BusinessDiscription:"",
+    Website:""
+  }
   
   
   const brandRequest: any = {
@@ -44,6 +51,7 @@ const createBrand= async(event:any, context:any)=> {
     PAN:brandRegstermodel.PAN?brandRegstermodel.PAN:"",
     GSTN:brandRegstermodel.GSTN?brandRegstermodel.GSTN:"",
     Address:brandRegstermodel.Address,
+    BusinessOverview:businessOverview,
     Name: brandRegstermodel.Name?brandRegstermodel.Name:"",
     Password: brandRegstermodel.Password,
     CreatedAt: now.toISOString(),
