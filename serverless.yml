@@ -87,7 +87,13 @@ functions:
     events:
       - http:
           method: PATCH
-          path: /branddetails/{BrandId}/businessOverview
+          path: /kycdetails/{BrandId}/businessOverview
+  updatebusinessdetails:
+    handler: app/handlers/updateBusinessDetails.handler
+    events:
+      - http:
+          method: PATCH
+          path: /businessdetails
           cors: true
 
 custom: 
