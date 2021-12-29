@@ -23,6 +23,12 @@ const createBrand= async(event:any, context:any)=> {
     AccountNumber:"",
     AccountHolderame:""
   }
+  const Address = {
+    Street: "",
+    PostalCode: "",
+    City: "",
+    States: ""
+  }
   
   
   const brandRequest: any = {
@@ -43,7 +49,9 @@ const createBrand= async(event:any, context:any)=> {
     BankDetails:bankDetails,
     PAN:brandRegstermodel.PAN?brandRegstermodel.PAN:"",
     GSTN:brandRegstermodel.GSTN?brandRegstermodel.GSTN:"",
-    Address:brandRegstermodel.Address,
+    Address: Address,
+    PANOwnerName: brandRegstermodel.PANOwnerName ? brandRegstermodel.PANOwnerName : "",
+    BillingName: brandRegstermodel.BillingName ? brandRegstermodel.BillingName : "",
     Name: brandRegstermodel.Name?brandRegstermodel.Name:"",
     Password: brandRegstermodel.Password,
     CreatedAt: now.toISOString(),

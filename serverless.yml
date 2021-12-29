@@ -87,7 +87,7 @@ functions:
     events:
       - http:
           method: PATCH
-          path: /businessdetails
+          path: /businessdetails/{BrandId}
           cors: true
 
 custom: 
