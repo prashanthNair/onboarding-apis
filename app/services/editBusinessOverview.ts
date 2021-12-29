@@ -17,7 +17,7 @@ export const editBusinessOverview = async (brandRequest: any) => {
         ":Website": brandRequest.Website,
         ":UpdatedAt":brandRequest.UpdatedAt
       },
-      UpdateExpression: "SET BusinessOverview.BusinessName = :BusinessName ,BusinessOverview.BusinessCategory = :BusinessCategory ,BusinessOverview.BusinessDiscription = :BusinessDiscription , BusinessOverview.Website = :Website, UpdatedAt = :UpdatedAt , UpdatedAt = :UpdatedAt",
+      UpdateExpression: "SET BusinessOverview.BusinessName = :BusinessName ,BusinessOverview.BusinessCategory = :BusinessCategory ,BusinessOverview.BusinessDiscription = :BusinessDiscription , BusinessOverview.Website = :Website, UpdatedAt = :UpdatedAt ",
       ReturnValues: "ALL_NEW",
     };
 
