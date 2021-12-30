@@ -5,13 +5,14 @@ import { editBusinessDetails } from "../services/editBusinessDetails";
 import createError from "http-errors";
 
 const updateBusinessDetails = async (event: any, context: any) => {
-  if (event.body == null) {
-    return new createError.NotFound("body missing");
+  let BrandId = event.pathParameters.BrandId;
+  if (event.body == null || BrandId == null) {
+    return new createError.NotFound("somthing went wrong");
   }
   let brandUpdateModel: BrandUpdateModel = JSON.parse(event.body);
   const now = new Date().toISOString();
   const brandrequest = {
-    BrandId: brandUpdateModel.BrandId,
+    BrandId: BrandId,
     Category: brandUpdateModel.Category ? brandUpdateModel.Category : "All",
     PAN: brandUpdateModel.PAN,
     RegBusinessName: brandUpdateModel.RegBusinessName,
