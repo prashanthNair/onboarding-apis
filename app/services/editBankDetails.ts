@@ -1,4 +1,4 @@
-import { documentClient, dynamoDB } from "../utils/config";
+import { documentClient } from "../utils/config";
 import { BrandTable } from "../utils/constants";
 import createError from "http-errors";
 
@@ -10,19 +10,11 @@ export const editBankDetails = async (brandRequest: any) => {
         BrandId: brandRequest.BrandId,
         Category: brandRequest.Category,
       },
-      // ExpressionAttributeNames: {
-      //   // "#BeneficiaryName": "BeneficiaryName",
-      //   // "#BranchIfscCode": "BranchIfscCode",
-      //   // "#AccountNumber": "AccountNumber",
-      //   // "#AccountHolderame": "AccountHolderame"
-      //   "#BankDetails": "BankDetails"
-      // },
       ExpressionAttributeValues: {
         ":BeneficiaryName": brandRequest.BeneficiaryName,
         ":BranchIfscCode": brandRequest.BranchIfscCode,
         ":AccountNumber": brandRequest.AccountNumber,
         ":AccountHolderame": brandRequest.AccountHolderame
-        // ":BankDetails": brandRequest.AccountHolderame
       },
       UpdateExpression: "SET BankDetails.BeneficiaryName = :BeneficiaryName ,BankDetails.BranchIfscCode = :BranchIfscCode ,BankDetails.AccountNumber = :AccountNumber ,BankDetails.AccountHolderame = :AccountHolderame ",
       ReturnValues: "ALL_NEW",
