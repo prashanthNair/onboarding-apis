@@ -13,23 +13,25 @@ export const editBusinessDetails = async (brandRequest: any) => {
       ExpressionAttributeNames: {
         "#PAN": "PAN",
         "#RegBusinessName": "RegBusinessName",
+        "#RegisteredType": "RegisteredType",
         "#PANOwnerName": "PANOwnerName",
         "#BillingName": "BillingName",
-        "#UpdatedAt": "UpdatedAt",
+        "#UpdatedDate": "UpdatedDate",
       },
       ExpressionAttributeValues: {
         ":PAN": brandRequest.PAN,
         ":RegBusinessName": brandRequest.RegBusinessName,
+        ":RegisteredType": brandRequest.RegisteredType,
         ":PANOwnerName": brandRequest.PANOwnerName,
         ":BillingName": brandRequest.BillingName,
         ":Street": brandRequest.Street,
         ":PostalCode": brandRequest.PostalCode,
         ":City": brandRequest.City,
         ":States": brandRequest.States,
-        ":UpdatedAt": brandRequest.UpdatedAt,
+        ":UpdatedDate": brandRequest.UpdatedDate,
       },
       UpdateExpression:
-        "SET #PAN = :PAN, #RegBusinessName = :RegBusinessName, #PANOwnerName = :PANOwnerName, #BillingName = :BillingName, Address.Street = :Street, Address.PostalCode = :PostalCode, Address.City = :City, Address.States = :States, #UpdatedAt = :UpdatedAt",
+        "SET #PAN = :PAN, #RegBusinessName = :RegBusinessName, #PANOwnerName = :PANOwnerName, #BillingName = :BillingName, Address.Street = :Street, Address.PostalCode = :PostalCode, Address.City = :City, Address.States = :States, #RegisteredType = :RegisteredType,  #UpdatedDate = :UpdatedDate",
       ReturnValues: "ALL_NEW",
     };
 

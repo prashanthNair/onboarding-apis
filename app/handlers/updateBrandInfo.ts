@@ -1,24 +1,34 @@
 import middy from "@middy/core";
 import cors from "@middy/http-cors";
-import { BrandUpdateModel } from "../model/brandUpdateModel";
+import { BrandModel } from "../model/brandModel";
 import { editBrandPersonalInfo } from "../services/editBrandInfo";
+import createError from "http-errors";
 
+const updateBrandContact = async (event: any) => {
+  if (event.body == null && event.pathParameters == null) {
+    return new createError.NotFound("input error");
+  }
 
-
-const updateBrandContact = async (event: any, context: any) => {
-  let brandUpdateModel: BrandUpdateModel = JSON.parse(event.body);
+  let brandModel: BrandModel = JSON.parse(event.body);
   let BrandId=event.pathParameters.BrandId
   const now = new Date().toISOString();
+
   const brandrequest = {
-    BrandId:BrandId,
-    Category: brandUpdateModel.Category?brandUpdateModel.Category:"All",
-    Name:brandUpdateModel.Name,
-    Mobile:brandUpdateModel.Mobile,
-    CountryCode:brandUpdateModel.CountryCode?brandUpdateModel.CountryCode:"+91",
-    BrandName:brandUpdateModel.BrandName,
-    GSTN:brandUpdateModel.GSTN,
-    UpdatedAt:now
-  }
+    BrandId: BrandId,
+    Category: brandModel.Category ? brandModel.Category : "All",
+    Name: brandModel.Name,
+    Mobile: brandModel.Mobile,
+    CountryCode: brandModel.CountryCode ? brandModel.CountryCode : "+91",
+    BrandName: brandModel.BrandName,
+    GSTN: brandModel.GSTN,
+    Country: brandModel.Country,
+    BrandUrl: brandModel.BrandUrl,
+    Tags: brandModel.Tags,
+    Website: brandModel.Website,
+    Password: brandModel.Password,
+    EmailId: brandModel.EmailId,
+    UpdatedDate: now,
+  };
   let response = await editBrandPersonalInfo(brandrequest);
   return {
     statusCode: 200,

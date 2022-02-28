@@ -12,11 +12,13 @@ export const editBankDetails = async (brandRequest: any) => {
       },
       ExpressionAttributeValues: {
         ":BeneficiaryName": brandRequest.BeneficiaryName,
-        ":BranchIfscCode": brandRequest.BranchIfscCode,
+        ":BranchIFCCode": brandRequest.BranchIFCCode,
         ":AccountNumber": brandRequest.AccountNumber,
-        ":AccountHolderame": brandRequest.AccountHolderame
+        ":AccountHolderName": brandRequest.AccountHolderName,
+        ":UpdatedDate": brandRequest.UpdatedDate,
       },
-      UpdateExpression: "SET BankDetails.BeneficiaryName = :BeneficiaryName ,BankDetails.BranchIfscCode = :BranchIfscCode ,BankDetails.AccountNumber = :AccountNumber ,BankDetails.AccountHolderame = :AccountHolderame ",
+      UpdateExpression:
+        "SET BankDetails.BeneficiaryName = :BeneficiaryName ,BankDetails.BranchIFCCode = :BranchIFCCode ,BankDetails.AccountNumber = :AccountNumber ,BankDetails.AccountHolderName = :AccountHolderName, UpdatedDate = :UpdatedDate",
       ReturnValues: "ALL_NEW",
     };
 
