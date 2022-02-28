@@ -52,42 +52,42 @@ functions:
     events:
       - http:
           method: GET
-          path: get/brandinfobybrandid/{BrandId}
+          path: brandinfobybrandid/{BrandId}
           cors: true
   getbrandbyemail:
     handler: app/handlers/getBrandByEmail.handler
     events:
       - http:
           method: GET
-          path: get/brandinfobyemailid/{EmailId}
+          path: brandinfobyemailid/{EmailId}
           cors: true
   createbrand:
     handler: app/handlers/createBrand.handler
     events:
       - http:
           method: POST
-          path: post/create/ 
+          path: create/ 
           cors: true 
   updatebrandinfo:
     handler: app/handlers/updateBrandInfo.handler
     events:
       - http:
           method: PATCH
-          path: patch/brandinfo/{BrandId}
+          path: updatebrandinfo/{BrandId}
           cors: true
   updatebankdetails:
     handler: app/handlers/updateBankDetails.handler
     events:
       - http:
           method: PATCH
-          path: patch/bankinfo/{BrandId}
+          path: updatebankdetails/{BrandId}
           cors: true
   updatebusinessdetails:
     handler: app/handlers/updateBusinessDetails.handler
     events:
       - http:
           method: PATCH
-          path: patch/businessinfo/{BrandId}
+          path: updatebusinessdetails/{BrandId}
           cors: true
 
 custom: 
