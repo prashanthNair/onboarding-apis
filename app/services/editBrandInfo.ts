@@ -22,7 +22,7 @@ export const editBrandPersonalInfo = async (brandRequest: any) => {
         "#Tags": "Tags",
         "#Website": "Website",
         "#Password": "Password",
-        "#UpdatedDate": "UpdatedDate",
+        "#UpdatedAt": "UpdatedAt",
       },
       ExpressionAttributeValues: {
         ":Mobile": brandRequest.Mobile,
@@ -36,10 +36,10 @@ export const editBrandPersonalInfo = async (brandRequest: any) => {
         ":Tags": brandRequest.Tags,
         ":Website": brandRequest.Website,
         ":Password": brandRequest.Password,
-        ":UpdatedDate": brandRequest.UpdatedDate,
+        ":UpdatedAt": brandRequest.UpdatedAt,
       },
       UpdateExpression:
-        "SET #Mobile = :Mobile, #brandname = :BrandName ,#Name = :Name, #countrycode = :CountryCode, #GSTN = :GSTN,#Country = :Country, #EmailId = :EmailId, #BrandUrl = :BrandUrl, #Tags = :Tags, #Website = :Website, #Password = :Password, #UpdatedDate = :UpdatedDate",
+        "SET #Mobile = :Mobile, #brandname = :BrandName ,#Name = :Name, #countrycode = :CountryCode, #GSTN = :GSTN,#Country = :Country, #EmailId = :EmailId, #BrandUrl = :BrandUrl, #Tags = :Tags, #Website = :Website, #Password = :Password, #UpdatedAt = :UpdatedAt",
       ReturnValues: "ALL_NEW",
     };
 

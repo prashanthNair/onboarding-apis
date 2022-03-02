@@ -23,8 +23,8 @@ export class BrandModel {
   BankDetails: BankDetails;
   Subscriptions: Subscriptions;
   Status: string;
-  CreatedDate: string;
-  UpdatedDate: string;
+  CreatedAt: string;
+  UpdatedAt: string;
 }
 class Subscriptions {
   SubscriptionsId: string;

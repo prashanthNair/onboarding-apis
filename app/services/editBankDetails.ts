@@ -15,10 +15,10 @@ export const editBankDetails = async (brandRequest: any) => {
         ":BranchIFCCode": brandRequest.BranchIFCCode,
         ":AccountNumber": brandRequest.AccountNumber,
         ":AccountHolderName": brandRequest.AccountHolderName,
-        ":UpdatedDate": brandRequest.UpdatedDate,
+        ":UpdatedAt": brandRequest.UpdatedAt,
       },
       UpdateExpression:
-        "SET BankDetails.BeneficiaryName = :BeneficiaryName ,BankDetails.BranchIFCCode = :BranchIFCCode ,BankDetails.AccountNumber = :AccountNumber ,BankDetails.AccountHolderName = :AccountHolderName, UpdatedDate = :UpdatedDate",
+        "SET BankDetails.BeneficiaryName = :BeneficiaryName ,BankDetails.BranchIFCCode = :BranchIFCCode ,BankDetails.AccountNumber = :AccountNumber ,BankDetails.AccountHolderName = :AccountHolderName, UpdatedAt = :UpdatedAt",
       ReturnValues: "ALL_NEW",
     };
 

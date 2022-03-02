@@ -15,8 +15,7 @@ const createBrand = async (event: any) => {
   const BrandId = "BR"+ new Date().getTime().toString();
   const UserId = "U"+ new Date().getTime().toString();
   const now = new Date();
-  const endDate = new Date();
-  endDate.setHours(now.getHours() + 1);
+
 
   const subscription = [
     {
@@ -65,8 +64,8 @@ const createBrand = async (event: any) => {
     PANOwnerName: brandModel.PANOwnerName ? brandModel.PANOwnerName : "",
     Subscriptions: brandModel.Subscriptions ? brandModel.Subscriptions : subscription,
     BankDetails: brandModel.BankDetails ? brandModel.BankDetails: bankDetails,
-    CreatedDate: now.toISOString(),
-    UpdatedDate:now.toISOString(),
+    CreatedAt: now.toLocaleString(),
+    UpdatedAt:now.toLocaleString(),
     Status: "Active",
     
   };
