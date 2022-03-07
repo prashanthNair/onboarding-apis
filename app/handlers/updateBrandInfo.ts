@@ -11,7 +11,7 @@ const updateBrandContact = async (event: any) => {
 
   let brandModel: BrandModel = JSON.parse(event.body);
   let BrandId=event.pathParameters.BrandId
-  const now = new Date().toISOString();
+  const now = new Date();
 
   const brandrequest = {
     BrandId: BrandId,
@@ -27,7 +27,7 @@ const updateBrandContact = async (event: any) => {
     Website: brandModel.Website,
     Password: brandModel.Password,
     EmailId: brandModel.EmailId,
-    UpdatedDate: now,
+    UpdatedAt: now.toLocaleString(),
   };
   let response = await editBrandPersonalInfo(brandrequest);
   return {

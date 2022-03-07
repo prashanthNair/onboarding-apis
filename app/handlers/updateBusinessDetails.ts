@@ -12,7 +12,8 @@ const updateBusinessDetails = async (event: any) => {
   
   let BrandId = event.pathParameters.BrandId;
   let brandModel: BrandModel = JSON.parse(event.body);
-  const now = new Date().toISOString();
+  const now = new Date();
+
   const brandrequest = {
     BrandId: BrandId,
     Category: brandModel.Category ? brandModel.Category : "All",
@@ -25,7 +26,7 @@ const updateBusinessDetails = async (event: any) => {
     PostalCode: brandModel.Address.PostalCode,
     City: brandModel.Address.City,
     States: brandModel.Address.States,
-    UpdatedDate: now,
+    UpdatedAt: now.toLocaleString(),
   };
   let response = await editBusinessDetails(brandrequest);
   return {

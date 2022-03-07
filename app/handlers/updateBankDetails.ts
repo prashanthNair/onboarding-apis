@@ -20,7 +20,7 @@ const updateBandDetails = async (event: any) => {
     BeneficiaryName: brandModel.BankDetails.BeneficiaryName,
     AccountNumber: brandModel.BankDetails.AccountNumber,
     BranchIFCCode: brandModel.BankDetails.BranchIFCCode,
-    UpdatedDate: now.toISOString(),
+    UpdatedAt: now.toLocaleString(),
   };
 
   let response = await editBankDetails(brandrequest);
