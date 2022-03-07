@@ -47,47 +47,47 @@ functions:
           method: GET
           path: /health
           cors: true 
-  createbrand:
-    handler: app/handlers/createBrand.handler
-    events:
-      - http:
-          method: POST
-          path: / 
-          cors: true 
-  updatebrandinfo:
-    handler: app/handlers/updateBrandInfo.handler
-    events:
-      - http:
-          method: PATCH
-          path: /{BrandId}/brandinfo
-          cors: true
   getbrand:
     handler: app/handlers/getBrand.handler
     events:
       - http:
           method: GET
-          path: /{BrandId}
-          cors: true
-  updatebankdetails:
-    handler: app/handlers/updateBankDetails.handler
-    events:
-      - http:
-          method: PATCH
-          path: /bankdetails/{BrandId}
+          path: brandinfobybrandid/{BrandId}
           cors: true
   getbrandbyemail:
     handler: app/handlers/getBrandByEmail.handler
     events:
       - http:
           method: GET
-          path: /branddetails/{EmailId}
+          path: brandinfobyemailid/{EmailId}
+          cors: true
+  createbrand:
+    handler: app/handlers/createBrand.handler
+    events:
+      - http:
+          method: POST
+          path: create/ 
+          cors: true 
+  updatebrandinfo:
+    handler: app/handlers/updateBrandInfo.handler
+    events:
+      - http:
+          method: PATCH
+          path: updatebrandinfo/{BrandId}
+          cors: true
+  updatebankdetails:
+    handler: app/handlers/updateBankDetails.handler
+    events:
+      - http:
+          method: PATCH
+          path: updatebankdetails/{BrandId}
           cors: true
   updatebusinessdetails:
     handler: app/handlers/updateBusinessDetails.handler
     events:
       - http:
           method: PATCH
-          path: /businessdetails/{BrandId}
+          path: updatebusinessdetails/{BrandId}
           cors: true
 
 custom: 

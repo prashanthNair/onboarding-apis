@@ -1,28 +1,31 @@
 import middy from "@middy/core";
 import cors from "@middy/http-cors";
-import { BrandUpdateModel } from "../model/brandUpdateModel";
+import { BrandModel } from "../model/brandModel";
 import { editBusinessDetails } from "../services/editBusinessDetails";
 import createError from "http-errors";
 
-const updateBusinessDetails = async (event: any, context: any) => {
-  let BrandId = event.pathParameters.BrandId;
-  if (event.body == null || BrandId == null) {
-    return new createError.NotFound("somthing went wrong");
+const updateBusinessDetails = async (event: any) => {
+
+  if (event.body == null && event.pathParameters == null) {
+    return new createError.NotFound("input error");
   }
-  let brandUpdateModel: BrandUpdateModel = JSON.parse(event.body);
+  
+  let BrandId = event.pathParameters.BrandId;
+  let brandModel: BrandModel = JSON.parse(event.body);
   const now = new Date().toISOString();
   const brandrequest = {
     BrandId: BrandId,
-    Category: brandUpdateModel.Category ? brandUpdateModel.Category : "All",
-    PAN: brandUpdateModel.PAN,
-    RegBusinessName: brandUpdateModel.RegBusinessName,
-    PANOwnerName: brandUpdateModel.PANOwnerName,
-    BillingName: brandUpdateModel.BillingName,
-    Street: brandUpdateModel.Address.Street,
-    PostalCode: brandUpdateModel.Address.PostalCode,
-    City: brandUpdateModel.Address.City,
-    States: brandUpdateModel.Address.States,
-    UpdatedAt: now,
+    Category: brandModel.Category ? brandModel.Category : "All",
+    PAN: brandModel.PAN,
+    RegBusinessName: brandModel.RegBusinessName,
+    RegisteredType: brandModel.RegisteredType,
+    PANOwnerName: brandModel.PANOwnerName,
+    BillingName: brandModel.BillingName,
+    Street: brandModel.Address.Street,
+    PostalCode: brandModel.Address.PostalCode,
+    City: brandModel.Address.City,
+    States: brandModel.Address.States,
+    UpdatedDate: now,
   };
   let response = await editBusinessDetails(brandrequest);
   return {

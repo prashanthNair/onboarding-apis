@@ -1,4 +1,4 @@
-import { documentClient, dynamoDB } from "../utils/config";
+import { documentClient } from "../utils/config";
 import { BrandTable } from "../utils/constants";
 import createError from "http-errors";
 
@@ -16,7 +16,13 @@ export const editBrandPersonalInfo = async (brandRequest: any) => {
         "#Name": "Name",
         "#countrycode": "CountryCode",
         "#GSTN": "GSTN",
-        "#lastupdateddate": "UpdatedAt"
+        "#Country": "Country",
+        "#EmailId": "EmailId",
+        "#BrandUrl": "BrandUrl",
+        "#Tags": "Tags",
+        "#Website": "Website",
+        "#Password": "Password",
+        "#UpdatedDate": "UpdatedDate",
       },
       ExpressionAttributeValues: {
         ":Mobile": brandRequest.Mobile,
@@ -24,9 +30,16 @@ export const editBrandPersonalInfo = async (brandRequest: any) => {
         ":Name": brandRequest.Name,
         ":CountryCode": brandRequest.CountryCode,
         ":GSTN": brandRequest.GSTN,
-        ":UpdatedAt": brandRequest.UpdatedAt,
+        ":Country": brandRequest.Country,
+        ":EmailId": brandRequest.EmailId,
+        ":BrandUrl": brandRequest.BrandUrl,
+        ":Tags": brandRequest.Tags,
+        ":Website": brandRequest.Website,
+        ":Password": brandRequest.Password,
+        ":UpdatedDate": brandRequest.UpdatedDate,
       },
-      UpdateExpression: "SET #Mobile = :Mobile, #brandname = :BrandName ,#Name = :Name, #countrycode = :CountryCode, #lastupdateddate = :UpdatedAt, #GSTN = :GSTN",
+      UpdateExpression:
+        "SET #Mobile = :Mobile, #brandname = :BrandName ,#Name = :Name, #countrycode = :CountryCode, #GSTN = :GSTN,#Country = :Country, #EmailId = :EmailId, #BrandUrl = :BrandUrl, #Tags = :Tags, #Website = :Website, #Password = :Password, #UpdatedDate = :UpdatedDate",
       ReturnValues: "ALL_NEW",
     };
 

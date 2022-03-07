@@ -1,28 +1,38 @@
 import middy from "@middy/core";
 import cors from "@middy/http-cors";
-import { v4 as uuid } from "uuid";  
-import { BrandRegisterModel } from "../model/brandRegisterModel";
-import { CreateBrandSchema } from "../schemas/createBrandSchema";
+import { BrandModel } from "../model/brandModel";
 import { SaveBrand } from "../services/saveBrand";
-import commonMidleware from "../utils/commonMidleware";
+import createError from "http-errors";
 
-const createBrand= async(event:any, context:any)=> { 
-  const { brandName } = event.body;
-  let brandRegstermodel: BrandRegisterModel = JSON.parse(event.body);
-  console.info("Request Event",event);
+const createBrand = async (event: any) => {
+
+  if (event.body == null) {
+    return new createError.NotFound('input error')
+  }
+
+  let brandModel: BrandModel = JSON.parse(event.body);
   console.info("Request Body",event.body);
   const BrandId = "BR"+ new Date().getTime().toString();
   const UserId = "U"+ new Date().getTime().toString();
   const now = new Date();
   const endDate = new Date();
   endDate.setHours(now.getHours() + 1);
-  const subscription= [{subscriptionName:"MigoInventory"}]
-  const bankDetails= {
+
+  const subscription = [
+    {
+      SubscriptionsId: "",
+      subscriptionName: "MigoInventory",
+      period: ""
+    }
+  ]
+  
+  const bankDetails = {
     BeneficiaryName: "",
-    BranchIfscCode:"",
-    AccountNumber:"",
-    AccountHolderame:""
-  }
+    BranchIFCCode: "",
+    AccountNumber: "",
+    AccountHolderName: "",
+  };
+  
   const Address = {
     Street: "",
     PostalCode: "",
@@ -34,28 +44,29 @@ const createBrand= async(event:any, context:any)=> {
   const brandRequest: any = {
     BrandId: BrandId, 
     UserID:UserId,
-    BrandName:brandRegstermodel.BrandName?brandRegstermodel.BrandName:"",
-    Domain:brandRegstermodel.Domain,
-    Category: brandRegstermodel.Category?brandRegstermodel.Category:"All",
-    Mobile: brandRegstermodel.Mobile?brandRegstermodel.Mobile:"",
-    EmailId:brandRegstermodel.EmailId,
-    Country:brandRegstermodel.Country,
-    Subscriptions:subscription,
-    CountryCode: brandRegstermodel.CountryCode?brandRegstermodel.CountryCode:"+91",
-    RegBusinessName: brandRegstermodel.RegBusinessName?brandRegstermodel.RegBusinessName:"",
-    RegisteredType: brandRegstermodel.RegisteredType?brandRegstermodel.RegisteredType:"",
-    BrandUrl:brandRegstermodel.BrandUrl?brandRegstermodel.BrandUrl:"",
-    Tags:brandRegstermodel.Tags?brandRegstermodel.Tags:[],
-    BankDetails:bankDetails,
-    PAN:brandRegstermodel.PAN?brandRegstermodel.PAN:"",
-    GSTN:brandRegstermodel.GSTN?brandRegstermodel.GSTN:"",
-    Address: Address,
-    PANOwnerName: brandRegstermodel.PANOwnerName ? brandRegstermodel.PANOwnerName : "",
-    BillingName: brandRegstermodel.BillingName ? brandRegstermodel.BillingName : "",
-    Name: brandRegstermodel.Name?brandRegstermodel.Name:"",
-    Password: brandRegstermodel.Password,
-    CreatedAt: now.toISOString(),
-    UpdatedAt:now.toISOString(),
+    BrandName:brandModel.BrandName ? brandModel.BrandName:"",
+    Domain:brandModel.Domain ? brandModel.Domain: "",
+    Category: brandModel.Category?brandModel.Category:"All",
+    Mobile: brandModel.Mobile ? brandModel.Mobile: "",
+    EmailId:brandModel.EmailId ? brandModel.EmailId: "",
+    Country:brandModel.Country ? brandModel.Country: "",
+    CountryCode: brandModel.CountryCode ? brandModel.CountryCode:"+91",
+    RegBusinessName: brandModel.RegBusinessName ? brandModel.RegBusinessName:"",
+    RegisteredType: brandModel.RegisteredType ? brandModel.RegisteredType:"",
+    BrandUrl:brandModel.BrandUrl ? brandModel.BrandUrl:"",
+    Tags:brandModel.Tags ? brandModel.Tags:[],
+    PAN:brandModel.PAN ? brandModel.PAN:"",
+    GSTN: brandModel.GSTN ? brandModel.GSTN : "",
+    Address: brandModel.Address ? brandModel.Address: Address,
+    Website: brandModel.Website ? brandModel.Website : "",
+    BillingName: brandModel.BillingName ? brandModel.BillingName : "",
+    Name: brandModel.Name ? brandModel.Name:"",
+    Password: brandModel.Password ? brandModel.Password: "",
+    PANOwnerName: brandModel.PANOwnerName ? brandModel.PANOwnerName : "",
+    Subscriptions: brandModel.Subscriptions ? brandModel.Subscriptions : subscription,
+    BankDetails: brandModel.BankDetails ? brandModel.BankDetails: bankDetails,
+    CreatedDate: now.toISOString(),
+    UpdatedDate:now.toISOString(),
     Status: "Active",
     
   };

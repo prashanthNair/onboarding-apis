@@ -1,4 +1,3 @@
-import AWS from "aws-sdk";
 import createError from "http-errors";
 import { documentClient } from "../utils/config";
 import { BrandTable } from "../utils/constants"; 
