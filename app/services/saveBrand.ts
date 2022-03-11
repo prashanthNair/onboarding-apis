@@ -21,7 +21,7 @@ export const SaveBrand = async (brandRequest: any) => {
   }
   return {
     statusCode: 200,
-    body: JSON.stringify(brandRequest),
+    body: brandRequest,
   };
 };
  

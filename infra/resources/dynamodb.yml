@@ -11,26 +11,36 @@ BrandTable:
       - AttributeName: Category
         AttributeType: S
       - AttributeName: UserID
-        AttributeType: S 
+        AttributeType: S
+      - AttributeName: EmailId
+        AttributeType: S
     KeySchema:
-      - AttributeName: BrandId
+      - AttributeName: EmailId
         KeyType: HASH
-      - AttributeName: Category
+      - AttributeName: BrandId
         KeyType: RANGE
     LocalSecondaryIndexes:
-      - IndexName: CategoryAndUserID
+      - IndexName: UserID-Index
         KeySchema:
-          - AttributeName: BrandId
+          - AttributeName: EmailId
             KeyType: HASH
           - AttributeName: UserID
             KeyType: RANGE 
         Projection:
-            ProjectionType: ALL 
-      - IndexName: StatusAndUserID
+            ProjectionType: ALL
+      - IndexName: Status-Index
         KeySchema:
-          - AttributeName: BrandId
+          - AttributeName: EmailId
             KeyType: HASH
           - AttributeName: Status
             KeyType: RANGE 
         Projection:
-            ProjectionType: ALL  
+            ProjectionType: ALL
+      - IndexName: Category-Index
+        KeySchema:
+          - AttributeName: EmailId
+            KeyType: HASH
+          - AttributeName: Category
+            KeyType: RANGE 
+        Projection:
+            ProjectionType: ALL
