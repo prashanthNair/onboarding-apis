@@ -17,7 +17,6 @@ export const editBrandPersonalInfo = async (brandRequest: any) => {
         "#countrycode": "CountryCode",
         "#GSTN": "GSTN",
         "#Country": "Country",
-        "#EmailId": "EmailId",
         "#BrandUrl": "BrandUrl",
         "#Tags": "Tags",
         "#Website": "Website",
@@ -31,7 +30,6 @@ export const editBrandPersonalInfo = async (brandRequest: any) => {
         ":CountryCode": brandRequest.CountryCode,
         ":GSTN": brandRequest.GSTN,
         ":Country": brandRequest.Country,
-        ":EmailId": brandRequest.EmailId,
         ":BrandUrl": brandRequest.BrandUrl,
         ":Tags": brandRequest.Tags,
         ":Website": brandRequest.Website,
@@ -39,7 +37,7 @@ export const editBrandPersonalInfo = async (brandRequest: any) => {
         ":UpdatedAt": brandRequest.UpdatedAt,
       },
       UpdateExpression:
-        "SET #Mobile = :Mobile, #brandname = :BrandName ,#Name = :Name, #countrycode = :CountryCode, #GSTN = :GSTN,#Country = :Country, #EmailId = :EmailId, #BrandUrl = :BrandUrl, #Tags = :Tags, #Website = :Website, #Password = :Password, #UpdatedAt = :UpdatedAt",
+        "SET #Mobile = :Mobile, #brandname = :BrandName ,#Name = :Name, #countrycode = :CountryCode, #GSTN = :GSTN,#Country = :Country, #BrandUrl = :BrandUrl, #Tags = :Tags, #Website = :Website, #Password = :Password, #UpdatedAt = :UpdatedAt",
       ReturnValues: "ALL_NEW",
     };
 
@@ -58,6 +56,6 @@ export const editBrandPersonalInfo = async (brandRequest: any) => {
   }
   return {
     statusCode: 200,
-    body: JSON.stringify(brandRequest),
+    body: brandRequest,
   };
 };

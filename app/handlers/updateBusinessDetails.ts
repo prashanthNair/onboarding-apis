@@ -3,13 +3,28 @@ import cors from "@middy/http-cors";
 import { BrandModel } from "../model/brandModel";
 import { editBusinessDetails } from "../services/editBusinessDetails";
 import createError from "http-errors";
+import { ValidateHeader, MakeHeaderRequest } from "../utils/commonMidleware";
 
 const updateBusinessDetails = async (event: any) => {
-
-  if (event.body == null && event.pathParameters == null) {
-    return new createError.NotFound("input error");
-  }
   
+  let validateResponse = ValidateHeader(event["headers"]);
+  if (!validateResponse.Status) {
+    return {
+      statusCode: 200,
+      body: JSON.stringify(validateResponse),
+    };
+  }
+  const headerRequest = MakeHeaderRequest(event["headers"]);
+
+  console.log("Header", headerRequest);
+
+  if (!event.body || !event.pathParameters) {
+    const err = new createError.NotFound("Bad Input");
+    return {
+      statusCode: 400,
+      body: JSON.stringify(err),
+    };
+  }
   let BrandId = event.pathParameters.BrandId;
   let brandModel: BrandModel = JSON.parse(event.body);
   const now = new Date();
