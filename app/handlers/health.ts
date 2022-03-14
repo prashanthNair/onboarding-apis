@@ -4,6 +4,7 @@ import commonMidleware, {
 } from "../utils/commonMidleware";
 
 export const healthCheck = async (event: any, context: any) => {
+  console.log(context)
   let validateResponse = ValidateHeader(event["headers"]);
   if (!validateResponse.Status) {
     return {

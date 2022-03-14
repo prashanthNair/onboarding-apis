@@ -4,17 +4,20 @@ package:
   individually: true
 
 plugins: 
-  - serverless-offline
-  - serverless-plugin-typescript  
+  - serverless-offline 
   - serverless-domain-manager
+  - serverless-deployment-bucket
+  - serverless-webpack
 
 provider:
   name: aws
-  runtime: nodejs14.x
-  memorySize: 256
+  runtime: nodejs14.x 
   stage: ${opt:stage, 'dev'}
   region: ap-south-1
   profile: serverless-admin
+  deploymentBucket:
+    name: brand-onboarding-rest-apis
+    serverSideEncryption: AES256
   environment:
     BRAND_TABLE_NAME: ${self:custom.BrandTable.name} 
     BRAND_BUCKET_NAME: ${self:custom.BrandBucket.name}
@@ -48,57 +51,53 @@ functions:
       - http:
           method: GET
           path: /health
-          cors: true 
-    # package:
-    #   artifact: brand-onboarding-rest-ap-serverlessdeploymentbuck-1907oknhj9suh/health.zip
+          cors: true  
   getbrand:
     handler: app/handlers/getBrand.handler
     events:
       - http:
           method: GET
           path: details/{EmailId}
-          cors: true 
-    # package:
-    #   artifact: details.zip
+          cors: true  
   createbrand:
     handler: app/handlers/createBrand.handler
     events:
       - http:
           method: POST
           path: register/
-          cors: true 
-    # package:
-    #   artifact: register.zip
+          cors: true  
   updatebrandinfo:
     handler: app/handlers/updateBrandInfo.handler
     events:
       - http:
           method: PATCH
           path: update/{BrandId}
-          cors: true
-    # package:
-    #   artifact: updateBrandInfo.zip
+          cors: true 
   updatebankdetails:
     handler: app/handlers/updateBankDetails.handler
     events:
       - http:
           method: PATCH
           path: bankdetails/{BrandId}
-          cors: true
-    # package:
-    #   artifact: updateBankDetails.zip
-  # updatebusinessdetails:
-  #   handler: app/handlers/updateBusinessDetails.handler
-  #   events:
-  #     - http:
-  #         method: PATCH
-  #         path: businessdetails/{BrandId}
-  #         cors: true
-  #   package:
-  #      artifact: updateBusinessDetails.zip
+          cors: true 
+  updatebusinessdetails:
+    handler: app/handlers/updateBusinessDetails.handler
+    events:
+      - http:
+          method: PATCH
+          path: businessdetails/{BrandId}
+          cors: true 
 
-custom: 
-  stage: ${opt:stage, self:provider.stage}
+custom:
+  stage: dev 
+  webpack: 
+    keepOutputDirectory: true
+    includeModules:
+      packagePath: './package.json'
+    webpackConfig: 'webpack.config.js' # Name of webpack configuration file 
+    packager: 'npm' # Packager that will be used to package your external modules
+    excludeFiles: src/**/*.test.js # Provide a glob for files to ignore 
+
   domains: 
     dev: api.migobucks.com
     # prod: api.migobucks.com 
@@ -106,7 +105,7 @@ custom:
     name: !Ref BrandTable
     arn: !GetAtt BrandTable.Arn 
   BrandBucket:
-    name: brand-onboarding-rest-api-${self:provider.stage} 
+    name: brand-onboarding-rest-apis-${self:provider.stage} 
   customDomain:
     domainName: ${self:custom.domains.${self:custom.stage}}
     basePath: 'brand'
