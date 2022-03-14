@@ -23,7 +23,7 @@ const getBrand = async (event: any) => {
     };
   }
 
-  const params = event.pathParameters.BrandId;
+  const params = event.pathParameters.EmailId;
   let response = await getBrandDetails(params);
 
   return {

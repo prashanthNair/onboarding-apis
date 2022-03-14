@@ -1,5 +1,7 @@
 service:
-  name: brand-onboarding-rest-api
+  name: brand-onboarding-rest-apis
+package:
+  individually: true
 
 plugins: 
   - serverless-offline
@@ -47,48 +49,53 @@ functions:
           method: GET
           path: /health
           cors: true 
+    # package:
+    #   artifact: brand-onboarding-rest-ap-serverlessdeploymentbuck-1907oknhj9suh/health.zip
   getbrand:
     handler: app/handlers/getBrand.handler
     events:
       - http:
           method: GET
-          path: brand/branddetails/{BrandId}
-          cors: true
-  getbrandbyemail:
-    handler: app/handlers/getBrandByEmail.handler
-    events:
-      - http:
-          method: GET
-          path: brand/branddetailsby/{EmailId}
-          cors: true
+          path: details/{EmailId}
+          cors: true 
+    # package:
+    #   artifact: details.zip
   createbrand:
     handler: app/handlers/createBrand.handler
     events:
       - http:
           method: POST
-          path: brand/create/
+          path: register/
           cors: true 
+    # package:
+    #   artifact: register.zip
   updatebrandinfo:
     handler: app/handlers/updateBrandInfo.handler
     events:
       - http:
           method: PATCH
-          path: brand/updatebranddetails/{BrandId}
+          path: update/{BrandId}
           cors: true
+    # package:
+    #   artifact: updateBrandInfo.zip
   updatebankdetails:
     handler: app/handlers/updateBankDetails.handler
     events:
       - http:
           method: PATCH
-          path: brand/updatebankdetails/{BrandId}
+          path: bankdetails/{BrandId}
           cors: true
-  updatebusinessdetails:
-    handler: app/handlers/updateBusinessDetails.handler
-    events:
-      - http:
-          method: PATCH
-          path: brand/updatebusinessdetails/{BrandId}
-          cors: true
+    # package:
+    #   artifact: updateBankDetails.zip
+  # updatebusinessdetails:
+  #   handler: app/handlers/updateBusinessDetails.handler
+  #   events:
+  #     - http:
+  #         method: PATCH
+  #         path: businessdetails/{BrandId}
+  #         cors: true
+  #   package:
+  #      artifact: updateBusinessDetails.zip
 
 custom: 
   stage: ${opt:stage, self:provider.stage}

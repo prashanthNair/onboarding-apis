@@ -6,6 +6,7 @@ import createError from "http-errors";
 import { ValidateHeader, MakeHeaderRequest } from "../utils/commonMidleware";
 
 const createBrand = async (event: any) => {
+  
   let validateResponse = ValidateHeader(event["headers"]);
   if (!validateResponse.Status) {
     return {

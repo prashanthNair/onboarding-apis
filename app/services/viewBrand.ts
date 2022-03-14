@@ -6,7 +6,7 @@ import AWS from "aws-sdk";
 export const getBrandDetails = async (params) => {
   try {
     let query = {
-      Statement: `SELECT * FROM "${BrandTable}" where BrandId = '${params}'`,
+      Statement: `SELECT * FROM "${BrandTable}" where EmailId = '${params}'`,
     };
     var result = await dynamoDB.executeStatement(query).promise();
     var converted = result.Items.map((el) =>
