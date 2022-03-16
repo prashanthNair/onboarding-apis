@@ -4,6 +4,7 @@ import { BrandModel } from "../model/brandModel";
 import { SaveBrand } from "../services/saveBrand";
 import createError from "http-errors";
 import { ValidateHeader, MakeHeaderRequest } from "../utils/commonMidleware";
+import { createUser } from "../services/createUser";
 
 const createBrand = async (event: any) => {
   try {
@@ -97,6 +98,23 @@ const createBrand = async (event: any) => {
         body: JSON.stringify(err),
       };
     }
+
+    let req = {
+      header: headerRequest,
+      body: { EmailId: brandRequest.EmailId, Password: brandRequest.Password },
+    };
+
+      createUser("user/register", req)
+      .then((res) => {
+        console.info(`CreateUser Response ${res}`);
+      })
+      .catch((err) => {
+        console.error(`CreateUser Error ${err}`);
+      });
+
+    // if (!res) {
+    //   throw new createError.InternalServerError("Error");
+    // }
     let response = await SaveBrand(brandRequest);
     return {
       statusCode: 200,

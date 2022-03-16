@@ -50,5 +50,6 @@ export default (handler:any) =>
     headerRequest["CustomerType"] = headers["X-MIBAPI-CustomerType"];
     headerRequest["Source"] = headers["X-MIBAPI-Source"];
     headerRequest["Token"] = headers["X-MIBAPI-Token"];
+    headerRequest["TraceID"] = headers["X-MIBAPI-Trace-Id"];
     return headerRequest;
   };

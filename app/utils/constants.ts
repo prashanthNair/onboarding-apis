@@ -6,3 +6,4 @@ export const HeaderConstants = {
   Source: "X-MIBAPI-Source",
   Token: "X-MIBAPI-Token",
 };
+ export const BASE_URL='https://api.dev.migobucks.com/'

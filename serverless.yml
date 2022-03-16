@@ -58,7 +58,11 @@ functions:
       - http:
           method: GET
           path: details/{EmailId}
-          cors: true  
+          cors: true 
+          # authorizer:
+          #   name: custom-authorizer
+          #   identitySource: method.request.header.Authorization
+          #   resultTtlInSeconds: 3600 
   createbrand:
     handler: app/handlers/createBrand.handler
     events:
