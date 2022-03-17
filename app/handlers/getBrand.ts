@@ -2,10 +2,13 @@ import middy from "@middy/core";
 import cors from "@middy/http-cors";
 import { getBrandDetails } from "../services/viewBrand";
 import createError from "http-errors";
-import { ValidateHeader, MakeHeaderRequest } from "../utils/commonMidleware";
+import { ValidateHeader, MakeHeaderRequest } from "../utils/commonMiddleware";
 
 const getBrand = async (event: any) => {
   try {
+    console.info(
+      `Request - Method: Get Action:GetBrand `
+    );
     let validateResponse = ValidateHeader(event["headers"]);
     if (!validateResponse.Status) {
       return {
@@ -26,6 +29,13 @@ const getBrand = async (event: any) => {
 
     const params = event.pathParameters.EmailId;
     let response = await getBrandDetails(params);
+
+    console.info(
+      `Response Body: ${{
+        statusCode: 200,
+        body: JSON.stringify(response),
+      }} Method: POST Action:GetBrand `
+    );
 
     return {
       statusCode: 200,

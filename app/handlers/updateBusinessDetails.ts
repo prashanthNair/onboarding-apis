@@ -3,10 +3,15 @@ import cors from "@middy/http-cors";
 import { BrandModel } from "../model/brandModel";
 import { editBusinessDetails } from "../services/editBusinessDetails";
 import createError from "http-errors";
-import { ValidateHeader, MakeHeaderRequest } from "../utils/commonMidleware";
+import { ValidateHeader, MakeHeaderRequest } from "../utils/commonMiddleware";
 
 const updateBusinessDetails = async (event: any) => {
   try {
+    console.info(
+      `Request Body: ${JSON.stringify(
+        event.body
+      )} Method: Update Action:UpdateBusinessDetails `
+    );
     let validateResponse = ValidateHeader(event["headers"]);
     if (!validateResponse.Status) {
       return {
@@ -37,13 +42,19 @@ const updateBusinessDetails = async (event: any) => {
       RegisteredType: brandModel.RegisteredType,
       PANOwnerName: brandModel.PANOwnerName,
       BillingName: brandModel.BillingName,
-      Street: brandModel.Address.Street,
-      PostalCode: brandModel.Address.PostalCode,
-      City: brandModel.Address.City,
-      States: brandModel.Address.States,
+      Street: brandModel?.Address?.Street,
+      PostalCode: brandModel?.Address?.PostalCode,
+      City: brandModel?.Address?.City,
+      States: brandModel?.Address?.States,
       UpdatedAt: now.toLocaleString(),
     };
     let response = await editBusinessDetails(brandrequest);
+    console.info(
+      `Response Body: ${{
+        statusCode: 200,
+        body: JSON.stringify(response),
+      }} Method: POST Action: UpdateBusinessDetails `
+    );
     return {
       statusCode: 200,
       body: JSON.stringify(response),

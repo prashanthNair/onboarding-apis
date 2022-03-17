@@ -98,13 +98,12 @@ custom:
     keepOutputDirectory: true
     includeModules:
       packagePath: './package.json'
-    webpackConfig: 'webpack.config.js' # Name of webpack configuration file 
-    packager: 'npm' # Packager that will be used to package your external modules
-    excludeFiles: src/**/*.test.js # Provide a glob for files to ignore 
+    webpackConfig: 'webpack.config.js' 
+    packager: 'npm'  
+    excludeFiles: src/**/*.test.js  
 
-  domains: 
-    dev: api.migobucks.com
-    # prod: api.migobucks.com 
+  domains:  
+    dev: api.dev.migobucks.com 
   BrandTable:
     name: !Ref BrandTable
     arn: !GetAtt BrandTable.Arn 

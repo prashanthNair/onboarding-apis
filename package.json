@@ -44,6 +44,7 @@
     "eslint": "^8.11.0",
     "fork-ts-checker-webpack-plugin": "^7.2.1",
     "http-errors": "^1.7.3",
+    "request": "^2.88.2",
     "ts-loader": "^8.2.0"
   }
 }

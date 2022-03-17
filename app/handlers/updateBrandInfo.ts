@@ -3,10 +3,15 @@ import cors from "@middy/http-cors";
 import { BrandModel } from "../model/brandModel";
 import { editBrandPersonalInfo } from "../services/editBrandInfo";
 import createError from "http-errors";
-import { ValidateHeader, MakeHeaderRequest } from "../utils/commonMidleware";
+import { ValidateHeader, MakeHeaderRequest } from "../utils/commonMiddleware";
 
 const updateBrandContact = async (event: any) => {
   try {
+    console.info(
+      `Request Body: ${JSON.stringify(
+        event.body
+      )} Method: Update Action:UpdateBrandContact `
+    );
     let validateResponse = ValidateHeader(event["headers"]);
     if (!validateResponse.Status) {
       return {
@@ -46,6 +51,12 @@ const updateBrandContact = async (event: any) => {
       UpdatedAt: now.toLocaleString(),
     };
     let response = await editBrandPersonalInfo(brandrequest);
+    console.info(
+      `Response Body: ${{
+        statusCode: 200,
+        body: JSON.stringify(response),
+      }} Method: POST Action: UpdateBrandContact `
+    );
     return {
       statusCode: 200,
       body: JSON.stringify(response),
@@ -54,6 +65,5 @@ const updateBrandContact = async (event: any) => {
     console.error(error);
     throw new createError.InternalServerError(error);
   }
-  
 };
 export const handler = middy(updateBrandContact).use(cors());

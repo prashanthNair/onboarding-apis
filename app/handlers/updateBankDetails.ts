@@ -3,10 +3,15 @@ import cors from "@middy/http-cors";
 import { BrandModel } from "../model/brandModel";
 import { editBankDetails } from "../services/editBankDetails";
 import createError from "http-errors";
-import { ValidateHeader, MakeHeaderRequest } from "../utils/commonMidleware";
+import { ValidateHeader, MakeHeaderRequest } from "../utils/commonMiddleware";
 
 const updateBandDetails = async (event: any) => {
   try {
+    console.info(
+      `Request Body: ${JSON.stringify(
+        event.body
+      )} Method: Update Action:updateBandDetails `
+    );
     let validateResponse = ValidateHeader(event["headers"]);
     if (!validateResponse.Status) {
       return {
@@ -40,6 +45,14 @@ const updateBandDetails = async (event: any) => {
     };
 
     let response = await editBankDetails(brandrequest);
+
+    console.info(
+      `Response Body: ${{
+        statusCode: 200,
+        body: JSON.stringify(response),
+      }} Method: POST Action: UpdateBandDetails `
+    );
+
     return {
       statusCode: 200,
       body: JSON.stringify(response),
@@ -48,6 +61,5 @@ const updateBandDetails = async (event: any) => {
     console.error(error);
     throw new createError.InternalServerError(error);
   }
-
 };
 export const handler = middy(updateBandDetails).use(cors());

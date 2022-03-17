@@ -8,21 +8,30 @@ export const GetAsync = async (method: any) => {
   return result.data;
 };
 
-export const PostAsync = async (method, req: any) => {
+export const PostUserAsync = async (method, req: any) => {
   const url = getUrl(method);
   const headers = createHeader(req.header);
   try {
-    axios
-      .post(url, req.body, { headers })
-      .then((res) => {
-        console.info(`Response ${JSON.stringify(res) }`);
-        return res.data;
-      })
-      .catch((err) => {
-        console.error(`Error ${err}`);
-      });
+    const response = await axios.post(url, req.body, { headers });
+    console.log("Create User: response:", {
+      message: "Request received",
+      url: response.config.url,
+      data: response.data,
+      status: response.status,
+    });
+    return makeResponseData(response.data);
   } catch (err) {
     console.error(`Error ${err}`);
+  }
+};
+
+const makeResponseData = (data) => {
+  if (data || data.body) { 
+    return { data: data.body };
+  } else {
+    return {
+      data: data.body,
+    };
   }
 };
 
@@ -37,5 +46,6 @@ const createHeader = (req) => {
     "X-MIBAPI-CustomerID": req.CustomerID,
     "X-MIBAPI-CustomerType": req.CustomerType,
     "X-MIBAPI-Source": req.Source,
+    "X-MIBAPI-Trace-Id": req.TraceID,
   };
 };

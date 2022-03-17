@@ -1,10 +1,10 @@
 import commonMidleware, {
   MakeHeaderRequest,
   ValidateHeader,
-} from "../utils/commonMidleware";
+} from "../utils/commonMiddleware";
 
 export const healthCheck = async (event: any, context: any) => {
-  console.log(context)
+  console.log(context);
   let validateResponse = ValidateHeader(event["headers"]);
   if (!validateResponse.Status) {
     return {
