@@ -7,8 +7,8 @@ export const editBusinessDetails = async (brandRequest: any) => {
     const params = {
       TableName: BrandTable,
       Key: {
+        EmailId: brandRequest.EmailId,
         BrandId: brandRequest.BrandId,
-        Category: brandRequest.Category,
       },
       ExpressionAttributeNames: {
         "#PAN": "PAN",
@@ -39,7 +39,7 @@ export const editBusinessDetails = async (brandRequest: any) => {
     console.info(`Edit Brand Begins: String request - ${strBody}`);
     console.info(`Edit brand - ${params}`);
     console.info(
-      `Edit Brand Begins: Service Table - ${BrandTable}'-'${brandRequest.BrandId}`
+      `Edit Brand Begins: Service Table - ${BrandTable}'-'${brandRequest.EmailId}`
     );
     await documentClient.update(params).promise();
 
