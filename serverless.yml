@@ -75,21 +75,21 @@ functions:
     events:
       - http:
           method: PATCH
-          path: update/{BrandId}
+          path: update/{EmailId}
           cors: true 
   updatebankdetails:
     handler: app/handlers/updateBankDetails.handler
     events:
       - http:
           method: PATCH
-          path: bankdetails/{BrandId}
+          path: bankdetails/{EmailId}
           cors: true 
   updatebusinessdetails:
     handler: app/handlers/updateBusinessDetails.handler
     events:
       - http:
           method: PATCH
-          path: businessdetails/{BrandId}
+          path: businessdetails/{EmailId}
           cors: true 
 
 custom:

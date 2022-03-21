@@ -24,7 +24,7 @@ const updateBrandContact = async (event: any) => {
     console.log("Header", headerRequest);
 
     if (!event.body || !event.pathParameters) {
-      const err = new createError.NotFound("Bad Input");
+      const err = new createError.NotFound("Body or pathParameters missing");
       return {
         statusCode: 400,
         body: JSON.stringify(err),
@@ -32,12 +32,12 @@ const updateBrandContact = async (event: any) => {
     }
 
     let brandModel: BrandModel = JSON.parse(event.body);
-    let BrandId = event.pathParameters.BrandId;
+    let EmailId = event.pathParameters.EmailId;
     const now = new Date();
 
     const brandrequest = {
-      BrandId: BrandId,
-      Category: brandModel.Category ? brandModel.Category : "All",
+      EmailId: EmailId,
+      BrandId: brandModel.BrandId,
       Name: brandModel.Name,
       Mobile: brandModel.Mobile,
       CountryCode: brandModel.CountryCode ? brandModel.CountryCode : "+91",
@@ -50,6 +50,13 @@ const updateBrandContact = async (event: any) => {
       Password: brandModel.Password,
       UpdatedAt: now.toLocaleString(),
     };
+    if (!brandrequest.EmailId || !brandrequest.BrandId) {
+      const err = new createError.NotFound("Email Id and Brand Id required");
+      return {
+        statusCode: 400,
+        body: JSON.stringify(err),
+      };
+    }
     let response = await editBrandPersonalInfo(brandrequest);
     console.info(
       `Response Body: ${{

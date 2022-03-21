@@ -7,8 +7,8 @@ export const editBrandPersonalInfo = async (brandRequest: any) => {
     const params = {
       TableName: BrandTable,
       Key: {
+        EmailId: brandRequest.EmailId,
         BrandId: brandRequest.BrandId,
-        Category: brandRequest.Category,
       },
       ExpressionAttributeNames: {
         "#Mobile": "Mobile",

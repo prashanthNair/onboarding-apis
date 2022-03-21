@@ -24,25 +24,33 @@ const updateBandDetails = async (event: any) => {
     console.log("Header", headerRequest);
 
     if (!event.body || !event.pathParameters) {
-      const err = new createError.NotFound("Bad Input");
+      const err = new createError.NotFound("Body or pathParameters missing");
       return {
         statusCode: 400,
         body: JSON.stringify(err),
       };
     }
+
     let brandModel: BrandModel = JSON.parse(event.body);
     const now = new Date();
-    let BrandId = event.pathParameters.BrandId;
+    let EmailId = event.pathParameters.EmailId;
 
     const brandrequest = {
-      BrandId: BrandId,
-      Category: brandModel.Category ? brandModel.Category : "All",
+      EmailId: EmailId,
+      BrandId: brandModel.BrandId,
       AccountHolderName: brandModel.BankDetails.AccountHolderName,
       BeneficiaryName: brandModel.BankDetails.BeneficiaryName,
       AccountNumber: brandModel.BankDetails.AccountNumber,
       BranchIFCCode: brandModel.BankDetails.BranchIFCCode,
       UpdatedAt: now.toLocaleString(),
     };
+    if (!brandrequest.EmailId || !brandrequest.BrandId) {
+      const err = new createError.NotFound("Email Id and Brand Id required");
+      return {
+        statusCode: 400,
+        body: JSON.stringify(err),
+      };
+    }
 
     let response = await editBankDetails(brandrequest);
 
