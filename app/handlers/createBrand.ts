@@ -2,7 +2,11 @@ import middy from "@middy/core";
 import cors from "@middy/http-cors";
 import { BrandModel } from "../model/brandModel";
 import createError from "http-errors";
-import { ValidateHeader, MakeHeaderRequest } from "../utils/commonMiddleware";
+import {
+  ValidateHeader,
+  MakeHeaderRequest,
+  validatemail,
+} from "../utils/commonMiddleware";
 import { Create } from "../utils/modelFactory";
 import { CreateBrand } from "../services/createBrand";
 
@@ -37,9 +41,16 @@ const createBrand = async (event: any) => {
 
     let brandModel: BrandModel = JSON.parse(event.body);
     let brandRequest = Create(brandModel);
-
     if (brandRequest.EmailId == null || brandRequest.Password == null) {
       const err = new createError.NotFound("Email Id and Password required");
+      return {
+        statusCode: 200,
+        body: JSON.stringify(err),
+      };
+    }
+    let request = validatemail(brandRequest);
+    if (await request == true) {
+      const err = new createError.NotFound("Email Id already exists");
       return {
         statusCode: 200,
         body: JSON.stringify(err),
@@ -60,8 +71,15 @@ const createBrand = async (event: any) => {
       body: JSON.stringify(response),
     };
   } catch (error: any) {
-    console.error(error);
-    throw new createError.InternalServerError(error);
+    console.info(
+      `Error: Path: ${event.path}, Method:${
+        event.httpMethod
+      } Error:${JSON.stringify(error)}`
+    );
+    return {
+      statusCode: 500,
+      body: JSON.stringify(error),
+    };
   }
 };
 
