@@ -3,15 +3,15 @@ service:
 package:
   individually: true
 
-plugins: 
-  - serverless-offline 
+plugins:
+  - serverless-offline
   - serverless-domain-manager
   - serverless-deployment-bucket
   - serverless-webpack
 
 provider:
   name: aws
-  runtime: nodejs14.x 
+  runtime: nodejs14.x
   stage: ${opt:stage, 'dev'}
   region: ap-south-1
   profile: serverless-admin
@@ -19,10 +19,10 @@ provider:
     name: brand-onboarding-rest-apis
     serverSideEncryption: AES256
   environment:
-    BRAND_TABLE_NAME: ${self:custom.BrandTable.name} 
+    BRAND_TABLE_NAME: ${self:custom.BrandTable.name}
     BRAND_BUCKET_NAME: ${self:custom.BrandBucket.name}
-  iam: 
-   role:
+  iam:
+    role:
       statements:
         - Effect: Allow
           Action:
@@ -32,18 +32,18 @@ provider:
             - dynamodb:PutItem
             - dynamodb:UpdateItem
             - dynamodb:DeleteItem
-          Resource: arn:aws:dynamodb:ap-south-1:670022476151:table/Brand-dev 
+          Resource: arn:aws:dynamodb:ap-south-1:670022476151:table/Brand-dev
         - Effect: Allow
           Action:
             - s3:PutObject
-          Resource: arn:aws:s3:::${self:custom.BrandBucket.name}/* 
+          Resource: arn:aws:s3:::${self:custom.BrandBucket.name}/*
 
 resources:
   Resources:
     BrandTable: ${file(infra/resources/dynamodb.yml):BrandTable}
     BrandBucket: ${file(infra/resources/s3.yml):BrandBucket}
     BrandBucketPolicy: ${file(infra/resources/s3.yml):BrandBucketPolicy}
-    
+
 functions:
   brandHealthCheck:
     handler: app/handlers/health.handler
@@ -51,68 +51,187 @@ functions:
       - http:
           method: GET
           path: /health
-          cors: true  
-  getbrand:
+          cors:
+            origin: '*'
+            AllowMethods: "'OPTIONS,GET,POST'"
+            headers:
+              - X-MIBAPI-CustomerType
+              - X-MIBAPI-Trace-Id
+              - X-MIBAPI-CustomerID
+              - X-MIBAPI-Token
+              - X-MIBAPI-Source
+              - Content-Type
+              - X-Amz-Date
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Headers
+              - Access-Control-Allow-Origin
+            allowCredentials: false
+  getBrand:
     handler: app/handlers/getBrand.handler
     events:
       - http:
           method: GET
           path: details/{EmailId}
-          cors: true 
+          cors:
+            origin: '*'
+            AllowMethods: "'OPTIONS,GET,POST'"
+            headers:
+              - X-MIBAPI-CustomerType
+              - X-MIBAPI-Trace-Id
+              - X-MIBAPI-CustomerID
+              - X-MIBAPI-Token
+              - X-MIBAPI-Source
+              - Content-Type
+              - X-Amz-Date
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Headers
+              - Access-Control-Allow-Origin
+            allowCredentials: false
+  getUser:
+    handler: app/handlers/getUser.handler
+    events:
+      - http:
+          method: GET
+          path: user/{EmailId}
+          cors:
+            origin: '*'
+            AllowMethods: "'OPTIONS,GET,POST'"
+            headers:
+              - X-MIBAPI-CustomerType
+              - X-MIBAPI-Trace-Id
+              - X-MIBAPI-CustomerID
+              - X-MIBAPI-Token
+              - X-MIBAPI-Source
+              - Content-Type
+              - X-Amz-Date
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Headers
+              - Access-Control-Allow-Origin
+            allowCredentials: false
           # authorizer:
           #   name: custom-authorizer
           #   identitySource: method.request.header.Authorization
-          #   resultTtlInSeconds: 3600 
+          #   resultTtlInSeconds: 3600
   createbrand:
     handler: app/handlers/createBrand.handler
     events:
       - http:
           method: POST
           path: register/
-          cors: true  
+          cors:
+            origin: '*'
+            AllowMethods: "'OPTIONS,GET,POST'"
+            headers:
+              - X-MIBAPI-CustomerType
+              - X-MIBAPI-Trace-Id
+              - X-MIBAPI-CustomerID
+              - X-MIBAPI-Token
+              - X-MIBAPI-Source
+              - Content-Type
+              - X-Amz-Date
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Headers
+              - Access-Control-Allow-Origin
+            allowCredentials: false
   updatebrandinfo:
     handler: app/handlers/updateBrandInfo.handler
     events:
       - http:
           method: PATCH
           path: update/{EmailId}
-          cors: true 
+          cors:
+            origin: '*'
+            AllowMethods: "'OPTIONS,GET,POST'"
+            headers:
+              - X-MIBAPI-CustomerType
+              - X-MIBAPI-Trace-Id
+              - X-MIBAPI-CustomerID
+              - X-MIBAPI-Token
+              - X-MIBAPI-Source
+              - Content-Type
+              - X-Amz-Date
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Headers
+              - Access-Control-Allow-Origin
+            allowCredentials: false
   updatebankdetails:
     handler: app/handlers/updateBankDetails.handler
     events:
       - http:
           method: PATCH
-          path: bankdetails/{EmailId}
-          cors: true 
+          path: bank-details/{EmailId}
+          cors:
+            origin: '*'
+            AllowMethods: "'OPTIONS,GET,POST'"
+            headers:
+              - X-MIBAPI-CustomerType
+              - X-MIBAPI-Trace-Id
+              - X-MIBAPI-CustomerID
+              - X-MIBAPI-Token
+              - X-MIBAPI-Source
+              - Content-Type
+              - X-Amz-Date
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Headers
+              - Access-Control-Allow-Origin
+            allowCredentials: false
   updatebusinessdetails:
     handler: app/handlers/updateBusinessDetails.handler
     events:
       - http:
           method: PATCH
-          path: businessdetails/{EmailId}
-          cors: true 
+          path: business-details/{EmailId}
+          cors:
+            origin: '*'
+            AllowMethods: "'OPTIONS,GET,POST'"
+            headers:
+              - X-MIBAPI-CustomerType
+              - X-MIBAPI-Trace-Id
+              - X-MIBAPI-CustomerID
+              - X-MIBAPI-Token
+              - X-MIBAPI-Source
+              - Content-Type
+              - X-Amz-Date
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Headers
+              - Access-Control-Allow-Origin
+            allowCredentials: false
 
 custom:
-  stage: dev 
-  webpack: 
+  stage: dev
+  webpack:
     keepOutputDirectory: true
     includeModules:
       packagePath: './package.json'
-    webpackConfig: 'webpack.config.js' 
-    packager: 'npm'  
-    excludeFiles: src/**/*.test.js  
+    webpackConfig: 'webpack.config.js'
+    packager: 'npm'
+    excludeFiles: src/**/*.test.js
 
-  domains:  
-    dev: api.dev.migobucks.com 
+  domains:
+    dev: api.dev.migobucks.com
   BrandTable:
     name: !Ref BrandTable
-    arn: !GetAtt BrandTable.Arn 
+    arn: !GetAtt BrandTable.Arn
   BrandBucket:
-    name: brand-onboarding-rest-apis-${self:provider.stage} 
+    name: brand-onboarding-rest-apis-${self:provider.stage}
   customDomain:
     domainName: ${self:custom.domains.${self:custom.stage}}
     basePath: 'brand'
-    stage: dev 
-    createRoute53Record: true 
+    stage: dev
+    createRoute53Record: true
   bundle:
     linting: false

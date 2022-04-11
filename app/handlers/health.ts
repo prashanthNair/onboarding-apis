@@ -1,25 +1,20 @@
-import commonMidleware, {
+import {
   MakeHeaderRequest,
+  responseBuilder,
   ValidateHeader,
-} from "../utils/commonMiddleware";
+} from '../utils/commonMiddleware';
 
-export const healthCheck = async (event: any, context: any) => {
+export const handler = async (event: any, context: any) => {
   console.log(context);
-  let validateResponse = ValidateHeader(event["headers"]);
+  let validateResponse = ValidateHeader(event['headers']);
   if (!validateResponse.Status) {
-    return {
-      statusCode: 200,
-      body: JSON.stringify(validateResponse),
-    };
+    return responseBuilder(validateResponse);
   }
-  const headerRequest = MakeHeaderRequest(event["headers"]);
+  const headerRequest = MakeHeaderRequest(event['headers']);
 
-  console.log("Header", headerRequest);
-  let respose = { status: true, message: "Brand Api Health CHeck Passed" };
-  return {
-    statusCode: 200,
-    body: JSON.stringify(respose),
-  };
+  console.log('Header', headerRequest);
+  let respose = { status: true, message: 'Brand Api Health CHeck Passed' };
+  return responseBuilder(respose);
 };
 
-export const handler = commonMidleware(healthCheck);
+// export const handler = commonMidleware(healthCheck);;

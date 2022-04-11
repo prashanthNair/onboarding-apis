@@ -1,10 +1,10 @@
 import createError from 'http-errors';
-import { getBrandDetails } from '../services/viewBrand';
 import {
   MakeHeaderRequest,
   responseBuilder,
   ValidateHeader,
 } from '../utils/commonMiddleware';
+import { getUserByEmailID } from '../utils/httpClient';
 
 export const handler = async (event: any) => {
   try {
@@ -22,7 +22,7 @@ export const handler = async (event: any) => {
     }
 
     const params = event.pathParameters.EmailId;
-    let response = await getBrandDetails(params);
+    let response = await getUserByEmailID(params);
 
     console.info(
       `Response Body: ${{

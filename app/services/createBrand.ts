@@ -1,8 +1,8 @@
-import createError from "http-errors";
-import { IUser } from "../interfaces/IUser";
-import { documentClient } from "../utils/config";
-import { BrandTable } from "../utils/constants";
-import { PostUserAsync } from "../utils/httpClient";
+import createError from 'http-errors';
+import { IUser } from '../interfaces/IUser';
+import { documentClient } from '../utils/config';
+import { BrandTable } from '../utils/constants';
+import { PostUserAsync } from '../utils/httpClient';
 
 export const CreateBrand = async (headerRequest, brandRequest: any) => {
   try {
@@ -17,23 +17,22 @@ export const CreateBrand = async (headerRequest, brandRequest: any) => {
       body: {
         EmailId: brandRequest.EmailId,
         Password: brandRequest.Password,
-        UserRoles: ["Brand"],
+        UserRoles: ['Brand'],
       },
     };
 
-    let { data }: any = await PostUserAsync("user/register", req);
+    const res = await PostUserAsync('authorizer/register', req);
 
-    if (!data) {
+    if (!res && !res.data) {
       return null;
     }
-    data = JSON.parse(data);
     const userResponse: IUser = {
-      EmailId: data.EmailId,
-      UserId: data.UserId,
+      EmailId: res.data.EmailId,
+      UserId: res.data.UserId,
     };
 
     console.log(
-      "Response: SaveBrand: Create User Response",
+      'Response: SaveBrand: Create User Response',
       userResponse.UserId
     );
 
@@ -44,15 +43,15 @@ export const CreateBrand = async (headerRequest, brandRequest: any) => {
     const params = {
       TableName: BrandTable,
       Item: brandRequest,
-      ReturnValues: "ALL_OLD",
+      ReturnValues: 'ALL_OLD',
     };
 
     const response = await documentClient.put(params).promise();
-    console.log("Datastore", response);
+    console.log('Datastore', response);
     if (!response) return null;
 
-    console.log("Datastore", response);
-    console.info("Response: Datastore Save Brand Service End:", response);
+    console.log('Datastore', response);
+    console.info('Response: Datastore Save Brand Service End:', response);
     return params.Item;
   } catch (error: any) {
     console.error(error);

@@ -1,5 +1,6 @@
-import axios from "axios";
-import { BASE_URL } from "./constants";
+import axios from 'axios';
+import { documentClient } from './config';
+import { BASE_URL, UsersTable } from './constants';
 export const SetAsync = () => {};
 
 export const GetAsync = async (method: any) => {
@@ -10,28 +11,25 @@ export const GetAsync = async (method: any) => {
 
 export const PostUserAsync = async (method, req: any) => {
   const url = getUrl(method);
-  const headers = createHeader(req.header);
+  // const headers = createHeader(req.header);// Will be removed once CORS for custom header issue fixed
+  const headers = {
+    'X-MIBAPI-Token': 'test',
+    'X-MIBAPI-CustomerID': '1545',
+    'X-MIBAPI-CustomerType': 'Brand',
+    'X-MIBAPI-Source': 'Brand',
+    'X-MIBAPI-Trace-Id': 'hdfsrdsfudsgdshgd6454ds8d84d',
+  };
   try {
     const response = await axios.post(url, req.body, { headers });
-    console.log("Create User: response:", {
-      message: "Request received",
+    console.log('Create User: response:', {
+      message: 'Request received',
       url: response.config.url,
       data: response.data,
       status: response.status,
     });
-    return makeResponseData(response.data);
+    return response;
   } catch (err) {
     console.error(`Error ${err}`);
-  }
-};
-
-const makeResponseData = (data) => {
-  if (data || data.body) { 
-    return { data: data.body };
-  } else {
-    return {
-      data: data.body,
-    };
   }
 };
 
@@ -40,12 +38,37 @@ const getUrl = (method) => {
   return url;
 };
 
-const createHeader = (req) => {
-  return {
-    "X-MIBAPI-Token": req.Token,
-    "X-MIBAPI-CustomerID": req.CustomerID,
-    "X-MIBAPI-CustomerType": req.CustomerType,
-    "X-MIBAPI-Source": req.Source,
-    "X-MIBAPI-Trace-Id": req.TraceID,
+export const getUserByEmailID = async (emailID: any) => {
+  const params = {
+    TableName: UsersTable,
+    Key: {
+      EmailId: emailID,
+    },
+    ConsistentRead: true,
+    ReturnConsumedCapacity: 'TOTAL',
   };
+
+  try {
+    const results: any = await documentClient.get(params).promise();
+    console.log('Result', results);
+    if (!results.Item) {
+      throw { Respone: 'User not found' };
+    }
+    console.log('data', JSON.stringify(results.Item, null, 2));
+    return results.Item;
+  } catch (error: any) {
+    console.error(error);
+    return error;
+    // throw new createError.InternalServerError(error);
+  }
 };
+
+// const createHeader = (req) => {
+//   return {
+//     'X-MIBAPI-Token': req.Token,
+//     'X-MIBAPI-CustomerID': req.CustomerID,
+//     'X-MIBAPI-CustomerType': req.CustomerType,
+//     'X-MIBAPI-Source': req.Source,
+//     'X-MIBAPI-Trace-Id': req.TraceID,
+//   };
+// };

@@ -31,18 +31,19 @@ module.exports = {
         {
             test: /\.ts$/,
             enforce: "pre",
-            loader: 'string-replace-loader',
-            query: {
-              search: '(System|SystemJS)(.*[\\n\\r]\\s*\\.|\\.)import\\((.+)\\)',
-              replace: '$1.import($3).then(mod => mod.__esModule ? mod.default : mod)',
-              flags: 'g'
-            },
+            use: 'string-replace-loader',
+            // options: {
+            //   search: '(System|SystemJS)(.*[\\n\\r]\\s*\\.|\\.)import\\((.+)\\)',
+            //   replace: '$1.import($3).then(mod => mod.__esModule ? mod.default : mod)',
+            //   flags: 'g'
+            // },
             include: [root('src')]
           },
       {
-        test: /\.ts$/,
-        loaders: [
-          'ts-loader'
+        test: /\.ts$/, 
+        use: [ 
+          { loader: 'ts-loader' }
+           
         ],
         exclude: [/\.(spec|e2e)\.ts$/]
       },
