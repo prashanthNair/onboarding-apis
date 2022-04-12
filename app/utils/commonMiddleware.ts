@@ -59,7 +59,7 @@ export const ValidateHeader = (headers) => {
   };
 };
 
-export const validatemail = async (brandRequest) => {
+export const validateEmail = async (brandRequest) => {
   try {
     let query = {
       Statement: `SELECT EmailId FROM "${BrandTable}" where EmailId = '${brandRequest.EmailId}'`,

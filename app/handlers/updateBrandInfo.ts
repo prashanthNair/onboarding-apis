@@ -1,11 +1,8 @@
-import middy from '@middy/core';
-import cors from '@middy/http-cors';
 import createError from 'http-errors';
-import { BrandModel } from '../model/brandModel';
 import { editBrandPersonalInfo } from '../services/editBrandInfo';
 import { MakeHeaderRequest, ValidateHeader } from '../utils/commonMiddleware';
 
-const updateBrandContact = async (event: any) => {
+export const handler = async (event: any) => {
   try {
     console.info(
       `Request Body: ${JSON.stringify(
@@ -31,7 +28,7 @@ const updateBrandContact = async (event: any) => {
       };
     }
 
-    let brandModel: BrandModel = JSON.parse(event.body);
+    let brandModel: any = JSON.parse(event.body);
     let EmailId = event.pathParameters.EmailId;
     const now = new Date();
 
@@ -73,4 +70,3 @@ const updateBrandContact = async (event: any) => {
     throw new createError.InternalServerError(error);
   }
 };
-export const handler = middy(updateBrandContact).use(cors());

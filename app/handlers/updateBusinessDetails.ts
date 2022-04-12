@@ -1,11 +1,13 @@
-import middy from '@middy/core';
-import cors from '@middy/http-cors';
 import createError from 'http-errors';
-import { BrandModel } from '../model/brandModel';
+import { BusinessDetails } from '../model/brandModel';
 import { editBusinessDetails } from '../services/editBusinessDetails';
-import { MakeHeaderRequest, ValidateHeader } from '../utils/commonMiddleware';
+import {
+  MakeHeaderRequest,
+  responseBuilder,
+  ValidateHeader,
+} from '../utils/commonMiddleware';
 
-const updateBusinessDetails = async (event: any) => {
+export const handler = async (event: any) => {
   try {
     console.info(
       `Request Body: ${JSON.stringify(
@@ -14,10 +16,7 @@ const updateBusinessDetails = async (event: any) => {
     );
     let validateResponse = ValidateHeader(event['headers']);
     if (!validateResponse.Status) {
-      return {
-        statusCode: 200,
-        body: JSON.stringify(validateResponse),
-      };
+      return responseBuilder(validateResponse, 400);
     }
     const headerRequest = MakeHeaderRequest(event['headers']);
 
@@ -25,50 +24,41 @@ const updateBusinessDetails = async (event: any) => {
 
     if (!event.body || !event.pathParameters) {
       const err = new createError.NotFound('Body or pathParameters missing');
-      return {
-        statusCode: 400,
-        body: JSON.stringify(err),
-      };
+      return responseBuilder(err, 400);
     }
-    let EmailId = event.pathParameters.EmailId;
-    let brandModel: BrandModel = JSON.parse(event.body);
-    const now = new Date();
-
-    const brandrequest = {
-      EmailId: EmailId,
-      BrandId: brandModel.BrandId,
-      PAN: brandModel.PAN,
-      RegBusinessName: brandModel.RegBusinessName,
-      RegisteredType: brandModel.RegisteredType,
+    let emailId = event.pathParameters.EmailId;
+    let brandModel: any = JSON.parse(event.body);
+    const businessDetails: BusinessDetails = {
+      BusinessName: brandModel.BusinessName,
+      BusinessType: brandModel.BusinessType,
+      Category: brandModel.Category,
+      SubCategory: brandModel.SubCategory,
+      GSTIN: brandModel.GSTIN,
+      BusinessPAN: brandModel.BusinessPAN,
       PANOwnerName: brandModel.PANOwnerName,
-      BillingName: brandModel.BillingName,
-      Street: brandModel.Address.Street,
-      PostalCode: brandModel.Address.PostalCode,
-      City: brandModel.Address.City,
-      States: brandModel.Address.States,
-      UpdatedAt: now.toLocaleString(),
+      BrandName: brandModel.BrandName,
+      PinCode: brandModel.PinCode,
+      WebSiteLink: brandModel.WebSiteLink,
     };
-    if (!brandrequest.EmailId || !brandrequest.BrandId) {
+
+    if (!emailId || !brandModel.BrandId) {
       const err = new createError.NotFound('Email Id and Brand Id required');
-      return {
-        statusCode: 400,
-        body: JSON.stringify(err),
-      };
+      return responseBuilder(err, 400);
     }
-    let response = await editBusinessDetails(brandrequest);
+    let response = await editBusinessDetails(
+      businessDetails,
+      emailId,
+      brandModel.BrandId
+    );
     console.info(
       `Response Body: ${{
         statusCode: 200,
         body: JSON.stringify(response),
       }} Method: POST Action: UpdateBusinessDetails `
     );
-    return {
-      statusCode: 200,
-      body: JSON.stringify(response),
-    };
+    return responseBuilder(response, 200);
   } catch (error: any) {
     console.error(error);
-    throw new createError.InternalServerError(error);
+    return responseBuilder(error, 500);
   }
 };
-export const handler = middy(updateBusinessDetails).use(cors());

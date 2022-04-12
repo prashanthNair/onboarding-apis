@@ -1,11 +1,11 @@
 import createError from 'http-errors';
-import { BrandModel } from '../model/brandModel';
+import { AccountCreation, BrandModel } from '../model/brandModel';
 import { CreateBrand } from '../services/createBrand';
 import {
   MakeHeaderRequest,
   responseBuilder,
+  validateEmail,
   ValidateHeader,
-  validatemail,
 } from '../utils/commonMiddleware';
 import { Create } from '../utils/modelFactory';
 
@@ -33,18 +33,23 @@ export const handler = async (event: any) => {
     }
 
     let brandModel: BrandModel = JSON.parse(event.body);
+    let accountCreation: AccountCreation = JSON.parse(event.body);
     let brandRequest = Create(brandModel);
-    if (brandRequest.EmailId == null || brandRequest.Password == null) {
+    if (brandModel.EmailId == null) {
       const err = new createError.NotFound('Email Id and Password required');
       return responseBuilder(err, 400);
     }
-    let request = validatemail(brandRequest);
+    let request = validateEmail(brandRequest);
     if ((await request) == true) {
       const err = new createError.NotFound('Email Id already exists');
       return responseBuilder(err, 400);
     }
 
-    let response = await CreateBrand(headerRequest, brandRequest);
+    let response = await CreateBrand(
+      headerRequest,
+      brandRequest,
+      accountCreation
+    );
 
     console.info(
       `Response Body: ${{

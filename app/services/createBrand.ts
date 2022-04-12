@@ -4,7 +4,11 @@ import { documentClient } from '../utils/config';
 import { BrandTable } from '../utils/constants';
 import { PostUserAsync } from '../utils/httpClient';
 
-export const CreateBrand = async (headerRequest, brandRequest: any) => {
+export const CreateBrand = async (
+  headerRequest,
+  brandRequest: any,
+  accountCreation: any
+) => {
   try {
     console.info(
       `Request: Method: POST Name: Save Brand: String request - ${JSON.stringify(
@@ -15,8 +19,8 @@ export const CreateBrand = async (headerRequest, brandRequest: any) => {
     let req = {
       header: headerRequest,
       body: {
-        EmailId: brandRequest.EmailId,
-        Password: brandRequest.Password,
+        EmailId: accountCreation.EmailId,
+        Password: accountCreation.Password,
         UserRoles: ['Brand'],
       },
     };

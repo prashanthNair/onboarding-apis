@@ -36,12 +36,6 @@
     "webpack-node-externals": "^3.0.0"
   },
   "dependencies": {
-    "@middy/core": "^2.5.7",
-    "@middy/http-cors": "^1.5.2",
-    "@middy/http-error-handler": "^1.0.0-beta.11",
-    "@middy/http-event-normalizer": "^1.0.0-beta.11",
-    "@middy/http-json-body-parser": "^1.0.0-beta.11",
-    "@middy/validator": "^1.0.0-beta.11",
     "@types/axios": "^0.14.0",
     "eslint": "^8.11.0",
     "http-errors": "^1.7.3",

@@ -1,45 +1,61 @@
 export class BrandModel {
   BrandId: string;
   UserId: string;
-  BrandName: string;
   Domain: string;
   Category: string;
   Mobile: string;
   EmailId: string;
   Country: string;
-  CountryCode: string;
-  RegBusinessName: string;
-  RegisteredType: string;
-  BrandUrl: string;
+  City: string;
+  ProfileLogUrl: string;
   Tags: Array<string>;
-  PAN: string;
-  GSTN: string;
   Address: Address;
-  Website: string;
-  BillingName: string;
-  Name: string;
-  Password: string;
-  PANOwnerName: string;
   BankDetails: BankDetails;
-  Subscriptions: Subscriptions;
+  Subscriptions: Array<Subscriptions>;
+  ContactInfo: ContactInfo;
+  BusinessDetails: BusinessDetails;
   Status: string;
   CreatedAt: string;
   UpdatedAt: string;
 }
-class Subscriptions {
+export class AccountCreation {
+  EmailId: string;
+  Password: string;
+}
+
+export class ContactInfo {
+  Name: string;
+  Mobile: string;
+  CountryCode: string;
+  Language: string;
+}
+
+export class BusinessDetails {
+  BusinessName: string;
+  BusinessType: string;
+  Category: string;
+  SubCategory: string;
+  GSTIN: string;
+  BusinessPAN: string;
+  PANOwnerName: string;
+  BrandName: string;
+  PinCode: string;
+  WebSiteLink: string;
+}
+export class Subscriptions {
   SubscriptionsId: string;
   SubscriptionName: string;
-  period: string;
+  Period: string;
+  Status: string;
 }
-class BankDetails {
+export class BankDetails {
   BeneficiaryName: string;
-  BranchIFCCode: string;
+  IFCCode: string;
   AccountNumber: string;
-  AccountHolderName: string;
 }
-class Address {
+export class Address {
   Street: string;
   City: string;
-  States: string;
+  State: string;
   PostalCode: string;
 }
