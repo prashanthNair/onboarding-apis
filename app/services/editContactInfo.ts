@@ -31,9 +31,18 @@ export const editContactInfo = async (contactInfo: any, emailId, brandId) => {
       `Edit Brand Begins: Service Table - ${BrandTable}'-'${brandId}`
     );
     const res = await documentClient.update(params).promise();
-    console.info('Edit Brand Service End:', contactInfo);
-
-    return contactInfo;
+    if (!res) {
+      throw new createError.InternalServerError(
+        'Error while updating Contact Info'
+      );
+    }
+    console.info(
+      `Response Body: ${{
+        statusCode: 200,
+        body: JSON.stringify(res.Attributes),
+      }} Method: POST Action:Contact Info `
+    );
+    return res.Attributes;
   } catch (error: any) {
     console.error(error);
     throw new createError.InternalServerError(error);

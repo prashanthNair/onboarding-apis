@@ -7,7 +7,7 @@ import {
   ValidateHeader,
 } from '../utils/commonMiddleware';
 
-export const updateContactInfo = async (event: any) => {
+export const handler = async (event: any) => {
   try {
     console.info(
       `Request Body: ${JSON.stringify(
@@ -35,7 +35,7 @@ export const updateContactInfo = async (event: any) => {
       Name: brandModel.Name,
       Mobile: brandModel.Mobile,
       CountryCode: brandModel.CountryCode ? brandModel.CountryCode : '+91',
-      Language: brandModel.Language,
+      PreferredLanguages: brandModel.Languages,
     };
 
     let response = await editContactInfo(contactInfo, emailId, brandId);

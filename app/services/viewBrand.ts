@@ -1,7 +1,7 @@
-import { dynamoDB } from "../utils/config";
-import createError from "http-errors";
-import { BrandTable } from "../utils/constants";
-import AWS from "aws-sdk";
+import { dynamoDB } from '../utils/config';
+import createError from 'http-errors';
+import { BrandTable } from '../utils/constants';
+import AWS from 'aws-sdk';
 
 export const getBrandDetails = async (params) => {
   try {
@@ -16,8 +16,7 @@ export const getBrandDetails = async (params) => {
     console.error(error);
     throw new createError.InternalServerError(error);
   }
-  return {
-    statusCode: 200,
-    body: converted,
-  };
+  if (converted && converted.length < 0) return null;
+
+  return converted[0];
 };

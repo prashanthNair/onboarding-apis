@@ -39,7 +39,8 @@ export const handler = async (event: any) => {
     const brandRequest: BankDetails = {
       BeneficiaryName: brandModel.BeneficiaryName,
       AccountNumber: brandModel.AccountNumber,
-      IFCCode: brandModel.IFCCode,
+      IFSCode: brandModel.IFSCode,
+      BankName: brandModel.BankName,
     };
     if (!emailId || !brandModel.BrandId) {
       const err = new createError.NotFound('Email Id and Brand Id required');

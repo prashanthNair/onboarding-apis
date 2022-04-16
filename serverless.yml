@@ -141,12 +141,12 @@ functions:
               - Access-Control-Allow-Headers
               - Access-Control-Allow-Origin
             allowCredentials: false
-  updatebrandinfo:
-    handler: app/handlers/updateBrandInfo.handler
+  updatebankdetails:
+    handler: app/handlers/updateBankDetails.handler
     events:
       - http:
           method: PATCH
-          path: update/{EmailId}
+          path: bank-details/{EmailId}
           cors:
             origin: '*'
             AllowMethods: "'OPTIONS,GET,POST'"
@@ -164,12 +164,12 @@ functions:
               - Access-Control-Allow-Headers
               - Access-Control-Allow-Origin
             allowCredentials: false
-  updatebankdetails:
-    handler: app/handlers/updateBankDetails.handler
+  contact-info:
+    handler: app/handlers/updateContactInfo.handler
     events:
       - http:
           method: PATCH
-          path: bank-details/{EmailId}
+          path: contact-info/{EmailId}
           cors:
             origin: '*'
             AllowMethods: "'OPTIONS,GET,POST'"

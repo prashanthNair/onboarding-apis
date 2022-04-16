@@ -27,7 +27,7 @@ export class ContactInfo {
   Name: string;
   Mobile: string;
   CountryCode: string;
-  Language: string;
+  PreferredLanguages: Array<string>;
 }
 
 export class BusinessDetails {
@@ -50,8 +50,9 @@ export class Subscriptions {
 }
 export class BankDetails {
   BeneficiaryName: string;
-  IFCCode: string;
+  IFSCode: string;
   AccountNumber: string;
+  BankName: string;
 }
 export class Address {
   Street: string;

@@ -33,14 +33,15 @@ export const Create = (brandModel: BrandModel) => {
     };
     const bankDetails: BankDetails = {
       BeneficiaryName: '',
-      IFCCode: '',
+      IFSCode: '',
       AccountNumber: '',
+      BankName: '',
     };
     const contactInfo: ContactInfo = {
       Name: '',
       Mobile: '',
       CountryCode: '',
-      Language: '',
+      PreferredLanguages: [],
     };
     const address: Address = {
       Street: '',

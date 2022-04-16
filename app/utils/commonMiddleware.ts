@@ -33,12 +33,12 @@ export const responseBuilder = (data, status = 200) => {
 export const ValidateHeader = (headers) => {
   let errorMessages = [];
 
-  if (!headers) {
-    return {
-      Message: 'Bad Request',
-      StatusCode: 400,
-    };
-  }
+  // if (!headers) {
+  //   return {
+  //     Message: 'Bad Request',
+  //     StatusCode: 400,
+  //   };
+  // }
 
   if (!headers[HeaderConstants.CustomerID]) {
     errorMessages.push(` ${HeaderConstants.CustomerID} 'is required'`);
