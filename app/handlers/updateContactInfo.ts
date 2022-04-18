@@ -36,7 +36,7 @@ export const handler = async (event: any) => {
       Mobile: brandModel.Mobile,
       EmailId: brandModel.EmailId,
       CountryCode: brandModel.CountryCode ? brandModel.CountryCode : '+91',
-      PreferredLanguages: brandModel.Languages,
+      Languages: brandModel.Languages,
     };
 
     let response = await editContactInfo(contactInfo, emailId, brandId);
