@@ -12,7 +12,7 @@ export class BrandModel {
   Address: Address;
   BankDetails: BankDetails;
   Subscriptions: Array<Subscriptions>;
-  ContactInfo: ContactInfo;
+  ContactDetails: ContactInfo;
   BusinessDetails: BusinessDetails;
   Status: string;
   CreatedAt: string;
@@ -27,7 +27,8 @@ export class ContactInfo {
   Name: string;
   Mobile: string;
   CountryCode: string;
-  PreferredLanguages: Array<string>;
+  EmailId: string;
+  Languages: Array<string>;
 }
 
 export class BusinessDetails {

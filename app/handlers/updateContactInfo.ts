@@ -34,6 +34,7 @@ export const handler = async (event: any) => {
     const contactInfo: ContactInfo = {
       Name: brandModel.Name,
       Mobile: brandModel.Mobile,
+      EmailId: brandModel.EmailId,
       CountryCode: brandModel.CountryCode ? brandModel.CountryCode : '+91',
       PreferredLanguages: brandModel.Languages,
     };

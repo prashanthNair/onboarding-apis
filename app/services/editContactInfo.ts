@@ -2,7 +2,11 @@ import { documentClient } from '../utils/config';
 import { BrandTable } from '../utils/constants';
 import createError from 'http-errors';
 
-export const editContactInfo = async (contactInfo: any, emailId, brandId) => {
+export const editContactInfo = async (
+  contactDetails: any,
+  emailId,
+  brandId
+) => {
   try {
     const now = new Date();
     const params = {
@@ -12,19 +16,19 @@ export const editContactInfo = async (contactInfo: any, emailId, brandId) => {
         BrandId: brandId,
       },
       ExpressionAttributeNames: {
-        '#ContactInfo': 'ContactInfo',
+        '#ContactDetails': 'ContactDetails',
         '#UpdatedAt': 'UpdatedAt',
       },
       ExpressionAttributeValues: {
-        ':ContactInfo': contactInfo,
+        ':ContactDetails': contactDetails,
         ':UpdatedAt': now.toUTCString(),
       },
       UpdateExpression:
-        'SET #ContactInfo = :ContactInfo, #UpdatedAt = :UpdatedAt',
+        'SET #ContactDetails = :ContactDetails, #UpdatedAt = :UpdatedAt',
       ReturnValues: 'ALL_NEW',
     };
 
-    let strBody = JSON.stringify(contactInfo);
+    let strBody = JSON.stringify(contactDetails);
     console.info(`Edit Brand Begins: String request - ${strBody}`);
     console.info(`Edit brand - ${params}`);
     console.info(

@@ -41,7 +41,8 @@ export const Create = (brandModel: BrandModel) => {
       Name: '',
       Mobile: '',
       CountryCode: '',
-      PreferredLanguages: [],
+      EmailId: '',
+      Languages: [],
     };
     const address: Address = {
       Street: '',
@@ -63,7 +64,7 @@ export const Create = (brandModel: BrandModel) => {
       Address: address,
       BankDetails: bankDetails,
       Subscriptions: [subscription],
-      ContactInfo: contactInfo,
+      ContactDetails: contactInfo,
       BusinessDetails: businessDetails,
       Status: 'Active',
       CreatedAt: now.toUTCString(),
