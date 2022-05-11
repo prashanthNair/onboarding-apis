@@ -1,6 +1,6 @@
 import createError from 'http-errors';
 import { editBrandPersonalInfo } from '../services/editBrandInfo';
-import { MakeHeaderRequest, ValidateHeader } from '../utils/commonMiddleware';
+import { MakeHeaderRequest, ValidateHeader } from '../utils/helper';
 
 export const handler = async (event: any) => {
   try {

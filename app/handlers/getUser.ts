@@ -3,7 +3,7 @@ import {
   MakeHeaderRequest,
   responseBuilder,
   ValidateHeader,
-} from '../utils/commonMiddleware';
+} from '../utils/helper';
 import { getUserByEmailID } from '../utils/httpClient';
 
 export const handler = async (event: any) => {

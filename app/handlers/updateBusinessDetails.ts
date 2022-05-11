@@ -5,7 +5,7 @@ import {
   MakeHeaderRequest,
   responseBuilder,
   ValidateHeader,
-} from '../utils/commonMiddleware';
+} from '../utils/helper';
 
 export const handler = async (event: any) => {
   try {
