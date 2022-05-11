@@ -1,15 +1,14 @@
 import createError from 'http-errors';
-import { AccountCreation, BrandModel } from '../model/brandModel';
-import { CreateBrand, ValidateEmail } from '../services/createBrand';
+import { Register } from '../services/registerOjtApplication';
 import {
   MakeHeaderRequest,
   responseBuilder,
   ValidateHeader,
 } from '../utils/commonMiddleware';
-import { Create } from '../utils/modelFactory';
 
 export const handler = async (event: any) => {
   try {
+    const applicantId = 'AP' + new Date().getTime().toString();
     console.info(
       `Request Body: ${JSON.stringify(
         event.body
@@ -38,25 +37,13 @@ export const handler = async (event: any) => {
       return responseBuilder(err, 400);
     }
 
-    let brandModel: BrandModel = JSON.parse(event.body);
-    let accountCreation: AccountCreation = JSON.parse(event.body);
-    accountCreation.UserType = 'Brand';
-    let brandRequest = Create(brandModel);
-    if (brandModel.EmailId == null) {
-      const err = new createError.NotFound('Email Id and Password required');
-      return responseBuilder(err, 400);
-    }
-    let request = ValidateEmail(brandRequest);
-    if ((await request) == true) {
-      const err = new createError.NotFound('Email Id already exists');
-      return responseBuilder(err, 400);
-    }
-
-    let response = await CreateBrand(
-      headerRequest,
-      brandRequest,
-      accountCreation
-    );
+    let applicationModel: any = JSON.parse(event.body);
+    const now = new Date();
+    applicationModel.ID = applicantId;
+    applicationModel.Status = 'Active';
+    applicationModel.CreatedAt = now.toUTCString();
+    applicationModel.UpdatedAt = now.toUTCString();
+    let response = await Register(applicationModel);
 
     console.info(
       `Response Body: ${{

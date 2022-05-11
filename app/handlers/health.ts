@@ -13,8 +13,6 @@ export const handler = async (event: any, context: any) => {
   const headerRequest = MakeHeaderRequest(event['headers']);
 
   console.log('Header', headerRequest);
-  let respose = { status: true, message: 'Brand Api Health CHeck Passed' };
-  return responseBuilder(respose);
+  let response = { status: true, message: 'Brand Api Health CHeck Passed' };
+  return responseBuilder(response);
 };
-
-// export const handler = commonMidleware(healthCheck);;

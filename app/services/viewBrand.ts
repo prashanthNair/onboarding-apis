@@ -12,11 +12,13 @@ export const getBrandDetails = async (params) => {
     var converted = result.Items.map((el) =>
       AWS.DynamoDB.Converter.unmarshall(el)
     );
+
+    if (converted && converted.length < 0)
+      throw new createError.InternalServerError();
+
+    return converted[0];
   } catch (error: any) {
     console.error(error);
     throw new createError.InternalServerError(error);
   }
-  if (converted && converted.length < 0) return null;
-
-  return converted[0];
 };

@@ -21,6 +21,7 @@ export class BrandModel {
 export class AccountCreation {
   EmailId: string;
   Password: string;
+  UserType: string;
 }
 
 export class ContactInfo {

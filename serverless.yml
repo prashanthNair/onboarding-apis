@@ -1,7 +1,7 @@
 service:
   name: brand-onboarding-rest-apis
 package:
-  individually: true
+  individually: false
 
 plugins:
   - serverless-offline
@@ -124,6 +124,29 @@ functions:
       - http:
           method: POST
           path: register/
+          cors:
+            origin: '*'
+            AllowMethods: "'OPTIONS,GET,POST'"
+            headers:
+              - X-MIBAPI-CustomerType
+              - X-MIBAPI-Trace-Id
+              - X-MIBAPI-CustomerID
+              - X-MIBAPI-Token
+              - X-MIBAPI-Source
+              - Content-Type
+              - X-Amz-Date
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Headers
+              - Access-Control-Allow-Origin
+            allowCredentials: false
+  register-ojt:
+    handler: app/handlers/postOjt.handler
+    events:
+      - http:
+          method: POST
+          path: ojt/register/
           cors:
             origin: '*'
             AllowMethods: "'OPTIONS,GET,POST'"

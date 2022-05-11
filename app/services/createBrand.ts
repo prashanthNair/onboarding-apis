@@ -1,6 +1,6 @@
 import createError from 'http-errors';
 import { IUser } from '../interfaces/IUser';
-import { documentClient } from '../utils/config';
+import { documentClient, dynamoDB } from '../utils/config';
 import { BrandTable } from '../utils/constants';
 import { PostUserAsync } from '../utils/httpClient';
 
@@ -60,5 +60,20 @@ export const CreateBrand = async (
   } catch (error: any) {
     console.error(error);
     throw new createError.InternalServerError(error);
+  }
+};
+
+export const validateEmail = async (brandRequest) => {
+  try {
+    let query = {
+      Statement: `SELECT EmailId FROM "${BrandTable}" where EmailId = '${brandRequest.EmailId}'`,
+    };
+    var result = await dynamoDB.executeStatement(query).promise();
+    if (brandRequest.EmailId == result.Items[0].EmailId.S) return true;
+  } catch (error: any) {
+    return {
+      statusCode: 500,
+      body: JSON.stringify(error),
+    };
   }
 };

@@ -1,5 +1,6 @@
 export const BrandTable = 'Brand-dev';
 export const UsersTable = 'User-dev';
+export const OJT_TABLE = 'MIB-OJT';
 
 export const HeaderConstants = {
   CustomerID: 'X-MIBAPI-CustomerID',

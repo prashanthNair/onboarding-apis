@@ -1,17 +1,4 @@
-// import middy from '@middy/core';
-// import httpEventNormalizer from '@middy/http-event-normalizer';
-// import httpErrorHandler from '@middy/http-error-handler';
-// import cors from '@middy/http-cors';
-import { dynamoDB } from './config';
-import { BrandTable, HeaderConstants } from './constants';
-
-// middy(handler).use([
-//   // httpJsonBodyParser(),
-//   httpEventNormalizer(),
-//   httpErrorHandler(),
-//   cors(),
-
-// ]);
+import { HeaderConstants } from './constants';
 
 export const responseBuilder = (data, status = 200) => {
   if (!data) {
@@ -59,21 +46,6 @@ export const ValidateHeader = (headers) => {
   };
 };
 
-export const validateEmail = async (brandRequest) => {
-  try {
-    let query = {
-      Statement: `SELECT EmailId FROM "${BrandTable}" where EmailId = '${brandRequest.EmailId}'`,
-    };
-    var result = await dynamoDB.executeStatement(query).promise();
-    if (brandRequest.EmailId == result.Items[0].EmailId.S) return true;
-  } catch (error: any) {
-    return {
-      statusCode: 500,
-      body: JSON.stringify(error),
-    };
-  }
-};
-
 export const MakeHeaderRequest = (headers) => {
   if (!headers) return null;
 
@@ -82,6 +54,6 @@ export const MakeHeaderRequest = (headers) => {
   headerRequest['CustomerType'] = headers['X-MIBAPI-CustomerType'];
   headerRequest['Source'] = headers['X-MIBAPI-Source'];
   headerRequest['Token'] = headers['X-MIBAPI-Token'];
-  headerRequest['TraceID'] = headers['X-MIBAPI-Trace-Id'];
+  headerRequest['TraceId'] = headers['X-MIBAPI-Trace-Id'];
   return headerRequest;
 };
