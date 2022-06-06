@@ -2,8 +2,8 @@ import { documentClient } from '../utils/config';
 import { BrandTable } from '../utils/constants';
 import createError from 'http-errors';
 
-export const editBankDetails = async (
-  bankDetails: any,
+export const editAddressDetails = async (
+  addressDetails: any,
   emailId: any,
   brandId: any
 ) => {
@@ -16,38 +16,38 @@ export const editBankDetails = async (
         BrandId: brandId,
       },
       UpdateExpression:
-        'SET #profileCompletion.#bank= :completionScore, #BankDetails = :BankDetails, #UpdatedAt = :UpdatedAt',
+        'SET #profileCompletion.#address= :completionScore, #AddressDetails = :AddressDetails, #UpdatedAt = :UpdatedAt',
       ExpressionAttributeValues: {
-        ':BankDetails': bankDetails,
+        ':AddressDetails': addressDetails,
         ':UpdatedAt': now.toUTCString(),
         ':completionScore': 'Completed',
       },
       ExpressionAttributeNames: {
-        '#BankDetails': 'BankDetails',
+        '#AddressDetails': 'AddressDetails',
         '#profileCompletion': 'ProfileCompletion',
-        '#bank': 'BankDetails',
+        '#address': 'AddressDetails',
         '#UpdatedAt': 'UpdatedAt',
       },
       ReturnValues: 'ALL_NEW',
     };
 
-    let strBody = JSON.stringify(bankDetails);
-    console.info(`Edit bankDetails: String request - ${strBody}`);
-    console.info(`Edit bankDetails - ${params}`);
+    let strBody = JSON.stringify(addressDetails);
+    console.info(`Edit addressDetails: String request - ${strBody}`);
+    console.info(`Edit addressDetails - ${params}`);
     console.info(
-      `Edit bankDetails Begins: Service Table - ${BrandTable}'-'${brandId}`
+      `Edit addressDetails Begins: Service Table - ${BrandTable}'-'${brandId}`
     );
     const res = await documentClient.update(params).promise();
     if (!res) {
       throw new createError.InternalServerError(
-        'Error while updating Bank details '
+        'Error while updating addressDetails '
       );
     }
     console.info(
       `Response Body: ${{
         statusCode: 200,
         body: JSON.stringify(res.Attributes),
-      }} Method: PATCH Action:bankDetails `
+      }} Method: PATCH Action:addressDetails `
     );
     return res.Attributes;
   } catch (error: any) {

@@ -63,7 +63,7 @@ export const CreateBrand = async (
   }
 };
 
-export const validateEmail = async (brandRequest) => {
+export const ValidateEmail = async (brandRequest) => {
   try {
     let query = {
       Statement: `SELECT EmailId FROM "${BrandTable}" where EmailId = '${brandRequest.EmailId}'`,

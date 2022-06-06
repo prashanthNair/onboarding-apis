@@ -5,15 +5,16 @@ export class BrandModel {
   Category: string;
   Mobile: string;
   EmailId: string;
-  Country: string;
-  City: string;
   ProfileLogUrl: string;
   Tags: Array<string>;
-  Address: Address;
+  AddressDetails: AddressDetails;
   BankDetails: BankDetails;
   Subscriptions: Array<Subscriptions>;
   ContactDetails: ContactInfo;
   BusinessDetails: BusinessDetails;
+  Document: Documents;
+  ProfileCompletion: ProfileCompletion;
+  ProfileCompletionScore: number;
   Status: string;
   CreatedAt: string;
   UpdatedAt: string;
@@ -23,7 +24,14 @@ export class AccountCreation {
   Password: string;
   UserType: string;
 }
-
+export class ProfileCompletion {
+  AccountActivation: string;
+  BusinessDetails: string;
+  ContactDetails: string;
+  AddressDetails: string;
+  BankDetails: string;
+  Documents: string;
+}
 export class ContactInfo {
   Name: string;
   Mobile: string;
@@ -41,9 +49,14 @@ export class BusinessDetails {
   BusinessPAN: string;
   PANOwnerName: string;
   BrandName: string;
-  PinCode: string;
   WebSiteLink: string;
 }
+
+export class AddressDetails {
+  BillingAddress: Address;
+  ShippingAddress: Address;
+}
+
 export class Subscriptions {
   SubscriptionsId: string;
   SubscriptionName: string;
@@ -57,8 +70,48 @@ export class BankDetails {
   BankName: string;
 }
 export class Address {
-  Street: string;
+  AddressLine1: string;
+  AddressLine2: string;
+  PinCode: string;
   City: string;
   State: string;
-  PostalCode: string;
+  Phone: string;
+}
+
+export class Documents {
+  AadhaarFront: {
+    Uploaded: boolean;
+    Verified: boolean;
+  };
+  AadhaarBack: {
+    Uploaded: boolean;
+    Verified: boolean;
+  };
+  BusinessProof: {
+    Uploaded: boolean;
+    Verified: boolean;
+  };
+  Pan: {
+    Uploaded: boolean;
+    Verified: boolean;
+  };
+}
+export class DocumentModel {
+  BrandId: string;
+  AadhaarFront: {
+    Uploaded: boolean;
+    Verified: boolean;
+  };
+  AadhaarBack: {
+    Uploaded: boolean;
+    Verified: boolean;
+  };
+  BusinessProof: {
+    Uploaded: boolean;
+    Verified: boolean;
+  };
+  Pan: {
+    Uploaded: boolean;
+    Verified: boolean;
+  };
 }

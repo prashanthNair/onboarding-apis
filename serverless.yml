@@ -118,7 +118,7 @@ functions:
           #   name: custom-authorizer
           #   identitySource: method.request.header.Authorization
           #   resultTtlInSeconds: 3600
-  createbrand:
+  create-brand:
     handler: app/handlers/createBrand.handler
     events:
       - http:
@@ -164,7 +164,7 @@ functions:
               - Access-Control-Allow-Headers
               - Access-Control-Allow-Origin
             allowCredentials: false
-  updatebankdetails:
+  update-bank-details:
     handler: app/handlers/updateBankDetails.handler
     events:
       - http:
@@ -210,12 +210,58 @@ functions:
               - Access-Control-Allow-Headers
               - Access-Control-Allow-Origin
             allowCredentials: false
-  updatebusinessdetails:
+  update-business-details:
     handler: app/handlers/updateBusinessDetails.handler
     events:
       - http:
           method: PATCH
           path: business-details/{EmailId}
+          cors:
+            origin: '*'
+            AllowMethods: "'OPTIONS,GET,POST'"
+            headers:
+              - X-MIBAPI-CustomerType
+              - X-MIBAPI-Trace-Id
+              - X-MIBAPI-CustomerID
+              - X-MIBAPI-Token
+              - X-MIBAPI-Source
+              - Content-Type
+              - X-Amz-Date
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Headers
+              - Access-Control-Allow-Origin
+            allowCredentials: false
+  update-documents:
+    handler: app/handlers/updateDocuments.handler
+    events:
+      - http:
+          method: PATCH
+          path: update-documents/{EmailId}
+          cors:
+            origin: '*'
+            AllowMethods: "'OPTIONS,GET,POST'"
+            headers:
+              - X-MIBAPI-CustomerType
+              - X-MIBAPI-Trace-Id
+              - X-MIBAPI-CustomerID
+              - X-MIBAPI-Token
+              - X-MIBAPI-Source
+              - Content-Type
+              - X-Amz-Date
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - Access-Control-Allow-Headers
+              - Access-Control-Allow-Origin
+            allowCredentials: false
+  update-address-details:
+    handler: app/handlers/updateAddressDetails.handler
+    events:
+      - http:
+          method: PATCH
+          path: update-address-details/{EmailId}
           cors:
             origin: '*'
             AllowMethods: "'OPTIONS,GET,POST'"

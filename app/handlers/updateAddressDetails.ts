@@ -1,6 +1,6 @@
 import createError from 'http-errors';
-import { BusinessDetails } from '../model/brandModel';
-import { editBusinessDetails } from '../services/editBusinessDetails';
+import { AddressDetails } from '../model/brandModel';
+import { editAddressDetails } from '../services/editAddressDetails';
 import {
   MakeHeaderRequest,
   responseBuilder,
@@ -12,7 +12,7 @@ export const handler = async (event: any) => {
     console.info(
       `Request Body: ${JSON.stringify(
         event.body
-      )} Method: Update Action:UpdateBusinessDetails `
+      )} Method: Update Action:updateAddressDetails `
     );
     let validateResponse = ValidateHeader(event['headers']);
     if (!validateResponse.Status) {
@@ -27,33 +27,26 @@ export const handler = async (event: any) => {
       return responseBuilder(err, 400);
     }
     let emailId = event.pathParameters.EmailId;
-    let brandModel: any = JSON.parse(event.body);
-    const businessDetails: BusinessDetails = {
-      BusinessName: brandModel.BusinessName,
-      BusinessType: brandModel.BusinessType,
-      Category: brandModel.Category,
-      SubCategory: brandModel.SubCategory,
-      GSTIN: brandModel.GSTIN,
-      BusinessPAN: brandModel.BusinessPAN,
-      PANOwnerName: brandModel.PANOwnerName,
-      BrandName: brandModel.BrandName,
-      WebSiteLink: brandModel.WebSiteLink,
+    let requestModel: any = JSON.parse(event.body);
+    const billingDetails: AddressDetails = {
+      BillingAddress: requestModel.BillingAddress,
+      ShippingAddress: requestModel.ShippingAddress,
     };
 
-    if (!emailId || !brandModel.BrandId) {
+    if (!emailId || !requestModel.BrandId) {
       const err = new createError.NotFound('Email Id and Brand Id required');
       return responseBuilder(err, 400);
     }
-    let response = await editBusinessDetails(
-      businessDetails,
+    let response = await editAddressDetails(
+      billingDetails,
       emailId,
-      brandModel.BrandId
+      requestModel.BrandId
     );
     console.info(
       `Response Body: ${{
         statusCode: 200,
         body: JSON.stringify(response),
-      }} Method: POST Action: UpdateBusinessDetails `
+      }} Method: POST Action: updateAddressDetails `
     );
     return responseBuilder(response, 200);
   } catch (error: any) {

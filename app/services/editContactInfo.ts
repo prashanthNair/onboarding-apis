@@ -15,16 +15,19 @@ export const editContactInfo = async (
         EmailId: emailId,
         BrandId: brandId,
       },
+      UpdateExpression:
+        'SET #profileCompletion.#contact= :completionScore, #UpdatedAt = :UpdatedAt, #ContactDetails = :ContactDetails',
       ExpressionAttributeNames: {
         '#ContactDetails': 'ContactDetails',
+        '#profileCompletion': 'ProfileCompletion',
+        '#contact': 'ContactDetails',
         '#UpdatedAt': 'UpdatedAt',
       },
       ExpressionAttributeValues: {
-        ':ContactDetails': contactDetails,
+        ':completionScore': 'Completed',
         ':UpdatedAt': now.toUTCString(),
+        ':ContactDetails': contactDetails,
       },
-      UpdateExpression:
-        'SET #ContactDetails = :ContactDetails, #UpdatedAt = :UpdatedAt',
       ReturnValues: 'ALL_NEW',
     };
 

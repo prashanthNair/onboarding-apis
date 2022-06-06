@@ -2,11 +2,7 @@ import { documentClient } from '../utils/config';
 import { BrandTable } from '../utils/constants';
 import createError from 'http-errors';
 
-export const editBusinessDetails = async (
-  businessDetails: any,
-  emailId,
-  brandId
-) => {
+export const editDocuments = async (documents: any, emailId, brandId) => {
   try {
     const now = new Date();
     const params = {
@@ -16,38 +12,39 @@ export const editBusinessDetails = async (
         BrandId: brandId,
       },
       ExpressionAttributeNames: {
-        '#BusinessDetails': 'BusinessDetails',
+        '#Documents': 'Documents',
         '#UpdatedAt': 'UpdatedAt',
         '#profileCompletion': 'ProfileCompletion',
-        '#contact': 'BusinessDetails',
+        '#documents': 'Documents',
       },
       ExpressionAttributeValues: {
         ':completionScore': 'Completed',
-        ':BusinessDetails': businessDetails,
+        ':Documents': documents,
         ':UpdatedAt': now.toUTCString(),
       },
       UpdateExpression:
-        'SET  #profileCompletion.#contact= :completionScore, #BusinessDetails = :BusinessDetails, #UpdatedAt = :UpdatedAt',
+        'SET #profileCompletion.#documents= :completionScore, #Documents = :Documents, #UpdatedAt = :UpdatedAt',
+
       ReturnValues: 'ALL_NEW',
     };
 
-    let strBody = JSON.stringify(businessDetails);
+    let strBody = JSON.stringify(documents);
     console.info(`Edit Brand Begins: String request - ${strBody}`);
     console.info(`Edit brand - ${params}`);
     console.info(
-      `Edit Brand Begins: Service Table - ${BrandTable}'-'${emailId}`
+      `Edit Brand Begins: Service Table - ${BrandTable}'-'${brandId}`
     );
     const res = await documentClient.update(params).promise();
     if (!res) {
       throw new createError.InternalServerError(
-        'Error while updating Business details'
+        'Error while updating Documents Info'
       );
     }
     console.info(
       `Response Body: ${{
         statusCode: 200,
         body: JSON.stringify(res.Attributes),
-      }} Method: POST Action:GetBrand `
+      }} Method: POST Action:Documents Info `
     );
     return res.Attributes;
   } catch (error: any) {

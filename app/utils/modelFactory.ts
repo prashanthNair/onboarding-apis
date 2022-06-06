@@ -1,9 +1,12 @@
 import {
   Address,
+  AddressDetails,
   BankDetails,
   BrandModel,
   BusinessDetails,
   ContactInfo,
+  Documents,
+  ProfileCompletion,
   Subscriptions,
 } from '../model/brandModel';
 
@@ -28,7 +31,6 @@ export const Create = (brandModel: BrandModel) => {
       BusinessPAN: '',
       PANOwnerName: '',
       BrandName: '',
-      PinCode: '',
       WebSiteLink: '',
     };
     const bankDetails: BankDetails = {
@@ -45,10 +47,44 @@ export const Create = (brandModel: BrandModel) => {
       Languages: [],
     };
     const address: Address = {
-      Street: '',
-      PostalCode: '',
+      AddressLine1: '',
+      AddressLine2: '',
+      Phone: '',
+      PinCode: '',
       City: '',
       State: '',
+    };
+
+    const addressDetails: AddressDetails = {
+      BillingAddress: address,
+      ShippingAddress: address,
+    };
+    const profileCompletion: ProfileCompletion = {
+      AccountActivation: 'Completed',
+      BusinessDetails: '',
+      ContactDetails: '',
+      AddressDetails: '',
+      BankDetails: '',
+      Documents: '',
+    };
+
+    const documents: Documents = {
+      AadhaarFront: {
+        Uploaded: false,
+        Verified: false,
+      },
+      AadhaarBack: {
+        Uploaded: false,
+        Verified: false,
+      },
+      BusinessProof: {
+        Uploaded: false,
+        Verified: false,
+      },
+      Pan: {
+        Uploaded: false,
+        Verified: false,
+      },
     };
     const brandModelRequest: BrandModel = {
       BrandId: BrandId,
@@ -57,15 +93,16 @@ export const Create = (brandModel: BrandModel) => {
       Mobile: brandModel.Mobile,
       Category: brandModel.Category ? brandModel.Category : 'All',
       EmailId: brandModel.EmailId,
-      Country: brandModel.Country ? brandModel.Country : '',
-      City: brandModel.City ? brandModel.City : '',
       ProfileLogUrl: brandModel.ProfileLogUrl ? brandModel.ProfileLogUrl : '',
       Tags: brandModel.Tags ? brandModel.Tags : [],
-      Address: address,
+      AddressDetails: addressDetails,
       BankDetails: bankDetails,
       Subscriptions: [subscription],
       ContactDetails: contactInfo,
+      Document: documents,
       BusinessDetails: businessDetails,
+      ProfileCompletion: profileCompletion,
+      ProfileCompletionScore: brandModel.ProfileCompletionScore,
       Status: 'Active',
       CreatedAt: now.toUTCString(),
       UpdatedAt: now.toUTCString(),
@@ -77,4 +114,11 @@ export const Create = (brandModel: BrandModel) => {
       body: JSON.stringify(error),
     };
   }
+};
+
+export const CreateDocument = (model) => {
+  return {
+    Uploaded: model.Uploaded,
+    Verified: model.Verified,
+  };
 };
