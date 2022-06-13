@@ -36,6 +36,7 @@ export const handler = async (event: any) => {
       GSTIN: brandModel.GSTIN,
       BusinessPAN: brandModel.BusinessPAN,
       PANOwnerName: brandModel.PANOwnerName,
+      GSTNVerification: brandModel.GSTNVerification || false,
       BrandName: brandModel.BrandName,
       WebSiteLink: brandModel.WebSiteLink,
     };

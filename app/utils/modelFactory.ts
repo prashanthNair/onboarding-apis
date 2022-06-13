@@ -30,6 +30,7 @@ export const Create = (brandModel: BrandModel) => {
       GSTIN: '',
       BusinessPAN: '',
       PANOwnerName: '',
+      GSTNVerification: false,
       BrandName: '',
       WebSiteLink: '',
     };
@@ -39,6 +40,7 @@ export const Create = (brandModel: BrandModel) => {
       AccountNumber: '',
       BankName: '',
     };
+
     const contactInfo: ContactInfo = {
       Name: '',
       Mobile: '',
@@ -56,6 +58,8 @@ export const Create = (brandModel: BrandModel) => {
     };
 
     const addressDetails: AddressDetails = {
+      Logo: { Name: '', Url: '' },
+      Signature: { Name: '', Url: '' },
       BillingAddress: address,
       ShippingAddress: address,
     };
@@ -72,18 +76,22 @@ export const Create = (brandModel: BrandModel) => {
       AadhaarFront: {
         Uploaded: false,
         Verified: false,
+        Url: '',
       },
       AadhaarBack: {
         Uploaded: false,
         Verified: false,
+        Url: '',
       },
       BusinessProof: {
         Uploaded: false,
         Verified: false,
+        Url: '',
       },
       Pan: {
         Uploaded: false,
         Verified: false,
+        Url: '',
       },
     };
     const brandModelRequest: BrandModel = {
@@ -98,7 +106,7 @@ export const Create = (brandModel: BrandModel) => {
       AddressDetails: addressDetails,
       BankDetails: bankDetails,
       Subscriptions: [subscription],
-      ContactDetails: contactInfo,
+      ContactDetails: brandModel.ContactDetails || contactInfo,
       Document: documents,
       BusinessDetails: businessDetails,
       ProfileCompletion: profileCompletion,

@@ -31,6 +31,8 @@ export const handler = async (event: any) => {
     const billingDetails: AddressDetails = {
       BillingAddress: requestModel.BillingAddress,
       ShippingAddress: requestModel.ShippingAddress,
+      Logo: requestModel.Logo,
+      Signature: requestModel.Signature,
     };
 
     if (!emailId || !requestModel.BrandId) {

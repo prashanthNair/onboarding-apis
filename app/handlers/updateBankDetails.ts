@@ -1,6 +1,7 @@
 import createError from 'http-errors';
 import { BankDetails } from '../model/brandModel';
-import { editBankDetails } from '../services/editBankDetails';
+// import { editBankDetails } from '../services/editBankDetails';
+import { editBankInfo } from '../services/editBankInfo';
 import {
   MakeHeaderRequest,
   responseBuilder,
@@ -47,7 +48,13 @@ export const handler = async (event: any) => {
       return responseBuilder(err, 400);
     }
 
-    let response = await editBankDetails(
+    // let response = await editBankDetails(
+    //   brandRequest,
+    //   emailId,
+    //   brandModel.BrandId
+    // );
+
+    let response = await editBankInfo(
       brandRequest,
       emailId,
       brandModel.BrandId

@@ -49,12 +49,15 @@ export class BusinessDetails {
   BusinessPAN: string;
   PANOwnerName: string;
   BrandName: string;
+  GSTNVerification: boolean;
   WebSiteLink: string;
 }
 
 export class AddressDetails {
   BillingAddress: Address;
   ShippingAddress: Address;
+  Logo: any;
+  Signature: any;
 }
 
 export class Subscriptions {
@@ -80,18 +83,22 @@ export class Address {
 
 export class Documents {
   AadhaarFront: {
+    Url: string;
     Uploaded: boolean;
     Verified: boolean;
   };
   AadhaarBack: {
+    Url: string;
     Uploaded: boolean;
     Verified: boolean;
   };
   BusinessProof: {
+    Url: string;
     Uploaded: boolean;
     Verified: boolean;
   };
   Pan: {
+    Url: string;
     Uploaded: boolean;
     Verified: boolean;
   };
@@ -99,18 +106,22 @@ export class Documents {
 export class DocumentModel {
   BrandId: string;
   AadhaarFront: {
+    Url: string;
     Uploaded: boolean;
     Verified: boolean;
   };
   AadhaarBack: {
+    Url: string;
     Uploaded: boolean;
     Verified: boolean;
   };
   BusinessProof: {
+    Url: string;
     Uploaded: boolean;
     Verified: boolean;
   };
   Pan: {
+    Url: string;
     Uploaded: boolean;
     Verified: boolean;
   };
